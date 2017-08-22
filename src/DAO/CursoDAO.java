@@ -5,8 +5,8 @@
  */
 package DAO;
 
-import br.com.comercio.modelos.Curso;
-import br.com.comercio.util.HibernateUtil;
+import Model.Curso;
+import util.HibernateUtil;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import br.com.comercio.modelos.Disciplina;
+import Model.Disciplina;
 import java.util.List;
 import javax.swing.JTextField;
 
@@ -46,6 +46,7 @@ public class DisciplinaControlador {
     public Disciplina cadastrar(){
         disciplina.setNome(disciplina.getNome());
         disciplina.setSemestre(disciplina.getSemestre());
+        disciplina.setCurso_id(disciplina.getCurso_id());
         return disciplina;
     }
     

@@ -25,7 +25,18 @@ public class Disciplina implements Serializable{
     private String nome;
     
     private int semestre;
+    
+    private int curso_id;
 
+    public int getCurso_id() {
+        return curso_id;
+    }
+
+    public void setCurso_id(int curso_id) {
+        this.curso_id = curso_id;
+    }
+
+    
     public int getIdDisciplina() {
         return idDisciplina;
     }

@@ -5,8 +5,8 @@
  */
 package Controller;
 
-import br.com.comercio.dao.CursoDAO;
-import br.com.comercio.modelos.Curso;
+import DAO.CursoDAO;
+import Model.Curso;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;

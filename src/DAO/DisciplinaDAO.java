@@ -5,12 +5,13 @@
  */
 package DAO;
 
-import br.com.comercio.interfaces.Disciplina;
-import br.com.comercio.util.HibernateUtil;
+
+import Model.Disciplina;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import util.HibernateUtil;
 
 /**
  *
