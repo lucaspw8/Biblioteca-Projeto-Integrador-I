@@ -14,6 +14,8 @@ import javax.persistence.Id;
  *
  * @author Jefferson
  */
+
+
 @Entity
 public class Disciplina implements Serializable{
     
