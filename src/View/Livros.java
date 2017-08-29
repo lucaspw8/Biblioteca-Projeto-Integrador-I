@@ -4,17 +4,27 @@
  * and open the template in the editor.
  */
 package View;
-
+import Controller.LivroControlador;
 /**
  *
  * @author Lucas
  */
 public class Livros extends javax.swing.JFrame {
 
-    /**
-     * Creates new form LivroView
-     */
+    private LivroControlador controlador;
+
+    public LivroControlador getControlador() {
+        return controlador;
+    }
+
+    public void setControlador(LivroControlador controlador) {
+        this.controlador = controlador;
+    }
+    
+    
+ 
     public Livros() {
+        controlador = new LivroControlador();
         initComponents();
     }
 
@@ -26,6 +36,7 @@ public class Livros extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -87,16 +98,34 @@ public class Livros extends javax.swing.JFrame {
 
         txtTitulo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${controlador.livro.titulo}"), txtTitulo, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         txtAutor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${controlador.livro.autor}"), txtAutor, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         txtEdicao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${controlador.livro.edicao}"), txtEdicao, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         txtEditora.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${controlador.livro.editora}"), txtEditora, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         txtQuantidade.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${controlador.livro.quantidade}"), txtQuantidade, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         cbDisponibilidade.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         cbDisponibilidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fisico", "Virtual", "Indisponivel" }));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${controlador.livro.disponivel}"), cbDisponibilidade, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
 
         btnCadastrar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCadastrar.setText("Cadastrar");
@@ -111,6 +140,9 @@ public class Livros extends javax.swing.JFrame {
         jLabel11.setText("Ano");
 
         txtAno.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${controlador.livro.ano}"), txtAno, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -341,6 +373,8 @@ public class Livros extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -415,5 +449,6 @@ public class Livros extends javax.swing.JFrame {
     private javax.swing.JTextField txtFiltro;
     private javax.swing.JTextField txtQuantidade;
     private javax.swing.JTextField txtTitulo;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

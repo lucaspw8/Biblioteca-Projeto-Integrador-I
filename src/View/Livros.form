@@ -287,6 +287,11 @@
                   <Font name="Tahoma" size="14" style="0"/>
                 </Property>
               </Properties>
+              <BindingProperties>
+                <BindingProperty name="text" source="Form" sourcePath="${controlador.livro.titulo}" target="txtTitulo" targetPath="text" updateStrategy="0" immediately="false">
+                  <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+                </BindingProperty>
+              </BindingProperties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtAutor">
               <Properties>
@@ -294,6 +299,11 @@
                   <Font name="Tahoma" size="14" style="0"/>
                 </Property>
               </Properties>
+              <BindingProperties>
+                <BindingProperty name="text" source="Form" sourcePath="${controlador.livro.autor}" target="txtAutor" targetPath="text" updateStrategy="0" immediately="false">
+                  <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+                </BindingProperty>
+              </BindingProperties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtEdicao">
               <Properties>
@@ -301,6 +311,11 @@
                   <Font name="Tahoma" size="14" style="0"/>
                 </Property>
               </Properties>
+              <BindingProperties>
+                <BindingProperty name="text" source="Form" sourcePath="${controlador.livro.edicao}" target="txtEdicao" targetPath="text" updateStrategy="0" immediately="false">
+                  <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+                </BindingProperty>
+              </BindingProperties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtEditora">
               <Properties>
@@ -308,6 +323,11 @@
                   <Font name="Tahoma" size="14" style="0"/>
                 </Property>
               </Properties>
+              <BindingProperties>
+                <BindingProperty name="text" source="Form" sourcePath="${controlador.livro.editora}" target="txtEditora" targetPath="text" updateStrategy="0" immediately="false">
+                  <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+                </BindingProperty>
+              </BindingProperties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtQuantidade">
               <Properties>
@@ -315,6 +335,11 @@
                   <Font name="Tahoma" size="14" style="0"/>
                 </Property>
               </Properties>
+              <BindingProperties>
+                <BindingProperty name="text" source="Form" sourcePath="${controlador.livro.quantidade}" target="txtQuantidade" targetPath="text" updateStrategy="0" immediately="false">
+                  <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+                </BindingProperty>
+              </BindingProperties>
             </Component>
             <Component class="javax.swing.JComboBox" name="cbDisponibilidade">
               <Properties>
@@ -329,6 +354,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <BindingProperties>
+                <BindingProperty name="selectedItem" source="Form" sourcePath="${controlador.livro.disponivel}" target="cbDisponibilidade" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
+              </BindingProperties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
@@ -371,6 +399,11 @@
                   <Font name="Tahoma" size="14" style="0"/>
                 </Property>
               </Properties>
+              <BindingProperties>
+                <BindingProperty name="text" source="Form" sourcePath="${controlador.livro.ano}" target="txtAno" targetPath="text" updateStrategy="0" immediately="false">
+                  <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+                </BindingProperty>
+              </BindingProperties>
             </Component>
           </SubComponents>
         </Container>

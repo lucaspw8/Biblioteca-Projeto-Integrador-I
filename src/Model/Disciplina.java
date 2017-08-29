@@ -6,6 +6,7 @@
 package Model;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -23,11 +24,11 @@ public class Disciplina implements Serializable{
     @GeneratedValue
     
     private int idDisciplina;
-    
+    @Column(name = "nome", nullable = false, length = 0)
     private String nome;
-    
+    @Column(name = "semestre", nullable = false, length = 2)
     private int semestre;
-    
+    @Column(name = "curso_id", nullable = false)
     private int curso_id;
 
     public int getCurso_id() {

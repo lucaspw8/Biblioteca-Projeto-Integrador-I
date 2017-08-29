@@ -6,7 +6,9 @@
 package Model;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
@@ -19,10 +21,11 @@ public class Curso implements Serializable{
     //Irá identificar a tabela para o hibernate
     @Id
     //GeneratedValue diz que o campo Id, será auto_increment
+    @GeneratedValue
     private int idCurso;
-    
+    @Column(name = "nome", nullable = false, length = 50)
     private String nome;
-    
+    @Column(name = "coordenador", nullable = true, length = 50)
     private String coordenador;
 
     public int getIdCurso() {

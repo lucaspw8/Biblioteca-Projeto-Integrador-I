@@ -5,16 +5,32 @@
  */
 package Model;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  *
  * @author Lucas
  */
-public class Usuario {
- private int id;
+@Entity
+public class Usuario implements Serializable{
+    
+    @Id
+    @GeneratedValue
+    private int id;
+    @Column(name = "login", unique = true, nullable = false, length = 30)
     private String login;
+   
+    @Column(name = "senha", nullable = false, length = 30)
     private String senha;
+    @Column(name = "nome", nullable = false, length = 50)
     private String nome;
+     @Column(name = "email", length = 50)
     private String email;
+    @Column(name = "cargo", nullable = false, length = 30)
     private String cargo;
 
     

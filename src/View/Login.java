@@ -4,17 +4,28 @@
  * and open the template in the editor.
  */
 package View;
-
+import Controller.UsuarioControlador;
 /**
  *
  * @author Lucas
  */
 public class Login extends javax.swing.JFrame {
+    private UsuarioControlador controlador;
 
+    public UsuarioControlador getControlador() {
+        return controlador;
+    }
+
+    public void setControlador(UsuarioControlador controlador) {
+        this.controlador = controlador;
+    }
+    
+    
     /**
      * Creates new form Login
      */
     public Login() {
+        controlador = new UsuarioControlador();
         initComponents();
     }
 
@@ -26,6 +37,7 @@ public class Login extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -53,7 +65,13 @@ public class Login extends javax.swing.JFrame {
 
         txtlogin.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${controlador.usuario.login}"), txtlogin, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         passwdSenha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${controlador.usuario.senha}"), passwdSenha, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/usuario1.png"))); // NOI18N
 
@@ -126,6 +144,8 @@ public class Login extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -175,5 +195,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel lblAvisoLogin;
     private javax.swing.JPasswordField passwdSenha;
     private javax.swing.JTextField txtlogin;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

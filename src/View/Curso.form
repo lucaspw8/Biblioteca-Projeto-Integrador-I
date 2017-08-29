@@ -196,6 +196,11 @@
                   <Font name="Tahoma" size="14" style="0"/>
                 </Property>
               </Properties>
+              <BindingProperties>
+                <BindingProperty name="text" source="Form" sourcePath="${controlador.curso.nome}" target="txtNome" targetPath="text" updateStrategy="0" immediately="false">
+                  <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+                </BindingProperty>
+              </BindingProperties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtCoordenador">
               <Properties>
@@ -203,6 +208,11 @@
                   <Font name="Tahoma" size="14" style="0"/>
                 </Property>
               </Properties>
+              <BindingProperties>
+                <BindingProperty name="text" source="Form" sourcePath="${controlador.curso.coordenador}" target="txtCoordenador" targetPath="text" updateStrategy="0" immediately="false">
+                  <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+                </BindingProperty>
+              </BindingProperties>
             </Component>
             <Component class="javax.swing.JButton" name="btnCadastrar">
               <Properties>

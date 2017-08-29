@@ -4,17 +4,28 @@
  * and open the template in the editor.
  */
 package View;
-
+import Controller.CursoControlador;
 /**
  *
  * @author Lucas
  */
 public class Curso extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Curso
-     */
+  
+    private CursoControlador controlador;
+
+    public CursoControlador getControlador() {
+        return controlador;
+    }
+
+    public void setControlador(CursoControlador controlador) {
+        this.controlador = controlador;
+    }
+    
+    
+    
     public Curso() {
+        controlador = new CursoControlador();
         initComponents();
     }
 
@@ -26,6 +37,7 @@ public class Curso extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -65,7 +77,13 @@ public class Curso extends javax.swing.JFrame {
 
         txtNome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${controlador.curso.nome}"), txtNome, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         txtCoordenador.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${controlador.curso.coordenador}"), txtCoordenador, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         btnCadastrar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCadastrar.setText("Cadastrar");
@@ -259,6 +277,8 @@ public class Curso extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -322,5 +342,6 @@ public class Curso extends javax.swing.JFrame {
     private javax.swing.JTextField txtCoordenador;
     private javax.swing.JTextField txtFiltro;
     private javax.swing.JTextField txtNome;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

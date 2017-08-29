@@ -5,18 +5,34 @@
  */
 package Model;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  *
  * @author Lucas
  */
-public class Livro {
+@Entity
+public class Livro implements Serializable{
+    @Id
+    @GeneratedValue
     private int id;
+         @Column(name = "titulo", nullable = false, length = 50)
     private String titulo;
+         @Column(name = "autor", nullable = false, length = 50)
     private String autor;
+         @Column(name = "quantidade", nullable = true, length = 5)
     private int quantidade;
+         @Column(name = "disponivel", nullable = false, length = 30)
     private String disponivel;
+         @Column(name = "editora", nullable = false, length = 50)
     private String editora;
+         @Column(name = "ano", nullable = false, length = 4)
     private int ano;
+           @Column(name = "edicao", nullable = false, length = 10)
     private String edicao;
 
     public int getId() {
