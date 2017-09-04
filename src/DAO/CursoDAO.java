@@ -45,11 +45,13 @@ public class CursoDAO {
     }
     
     public void cadastrar(Curso curso){
-        //Pedindo para salvar Usuario
+        //Pedindo para salvar Curso
         sessão.save(curso);
         
         //Solicitando o envio dos dados ao banco
         transacao.commit();
+        //Encerra a sessão com o banco libeando a conecção
+        sessão.clear();
     }
     
     public void atualizar(Curso curso){

@@ -7,6 +7,7 @@ package Controller;
 
 
 import Model.Livro;
+import DAO.LivroDao;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -39,6 +40,12 @@ public class LivroControlador {
     }
     
     
-    
+    public void CadastrarLivros(){
+        
+         
+         LivroDao dao = new LivroDao();
+         dao.CadastrarLivro(livro);
+         
+    }
    
 }

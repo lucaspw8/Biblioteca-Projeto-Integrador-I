@@ -31,7 +31,7 @@ public class Livro implements Serializable{
          @Column(name = "editora", nullable = false, length = 50)
     private String editora;
          @Column(name = "ano", nullable = false, length = 4)
-    private int ano;
+    private String ano;
            @Column(name = "edicao", nullable = false, length = 10)
     private String edicao;
 
@@ -83,11 +83,11 @@ public class Livro implements Serializable{
         this.editora = editora;
     }
 
-    public int getAno() {
+    public String getAno() {
         return ano;
     }
 
-    public void setAno(int ano) {
+    public void setAno(String ano) {
         this.ano = ano;
     }
 

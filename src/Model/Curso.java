@@ -23,9 +23,9 @@ public class Curso implements Serializable{
     //GeneratedValue diz que o campo Id, será auto_increment
     @GeneratedValue
     private int idCurso;
-    @Column(name = "nome", nullable = false, length = 50)
+   
     private String nome;
-    @Column(name = "coordenador", nullable = true, length = 50)
+    @Column(name = "coordenador", nullable = false, length = 50)
     private String coordenador;
 
     public int getIdCurso() {

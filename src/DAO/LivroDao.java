@@ -7,6 +7,8 @@ package DAO;
 
 import Model.Livro;
 import java.util.List;
+import javax.swing.JOptionPane;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -44,6 +46,23 @@ public class LivroDao {
     public void setTransacao(Transaction transacao) {
         this.transacao = transacao;
     }
+    
+    /**
+     * Responsavel pelo cadastro dos livros
+     * @
+     * @param livro
+     */
       
-      
+    public void CadastrarLivro(Livro livro){
+        try {
+             sessão.save(livro);
+             transacao.commit();
+            //Encerra a sessão com o banco libeando a conecção
+             sessão.close();
+        } catch (HibernateException e) {
+            
+            JOptionPane.showMessageDialog(null,"Erro ao cadastrar "+e.getMessage() );
+        }
+       
+    }  
 }

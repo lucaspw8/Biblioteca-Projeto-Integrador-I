@@ -41,18 +41,20 @@ public class CursoControlador {
     }
     
     public boolean verificar(){
-        if(curso!=null){
-            return curso.getNome().length()>3
-                    && curso.getCoordenador().length()>4;    
-        }
-        return false;
+        
+       return curso.getNome() == null || curso.getCoordenador() == null;
+    
     }
     
-    public Curso cadastrar(){
-        curso.setIdCurso(curso.getIdCurso());
-        curso.setNome(curso.getNome());
-        curso.setCoordenador(curso.getCoordenador());
-        return curso;
+    public void cadastrar(){
+        
+        //curso.setNome(curso.getNome());
+        //curso.setCoordenador(curso.getCoordenador());
+        
+         
+        CursoDAO cursoDAO = new CursoDAO();
+        cursoDAO.cadastrar(curso);
+        
     }
     
     public void pesquisar(){
