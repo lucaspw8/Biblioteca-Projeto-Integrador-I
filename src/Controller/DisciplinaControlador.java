@@ -5,9 +5,12 @@
  */
 package Controller;
 
+import DAO.DisciplinaDAO;
 import Model.Disciplina;
 import java.util.List;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -34,21 +37,51 @@ public class DisciplinaControlador {
         this.disciplinas = disciplinas;
     }
 
-   
     
-    public boolean verificar(){
-        if(disciplina!=null){
-            return disciplina.getNome().length()>3;    
+    public void cadastrar(){
+        DisciplinaDAO dao = new DisciplinaDAO();
+        dao.cadastrar(disciplina);
+    }
+    
+      public void EditarDisciplina(){
+        DisciplinaDAO dao = new DisciplinaDAO();
+        dao.atualizar(disciplina);
+    }
+      
+     
+     public void ExcluirLivro(){
+        DisciplinaDAO dao = new DisciplinaDAO();
+        dao.Remover(disciplina);
+    }
+    
+    
+     public void listaDisciplina(){
+      DisciplinaDAO dao = new DisciplinaDAO();
+      disciplinas = dao.ListarDisciplina(disciplina);
+    }
+     
+     public void atualizarTabela(JTable tabela) {
+        
+        
+            listaDisciplina();
+
+            List<Disciplina> DisciplinasEncontrados = getDisciplinas();
+
+            DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+            
+            modelo.setNumRows(0);
+
+            for (int x = 0; x < DisciplinasEncontrados.size(); x++) {
+                modelo.insertRow(x,new String[]{
+                            String.valueOf(DisciplinasEncontrados.get(x).getIdDisciplina()),
+                            DisciplinasEncontrados.get(x).getNome(),
+                            DisciplinasEncontrados.get(x).getSemestre()
+                            
+                         });
+            }
+
+            tabela.setModel(modelo);
         }
-        return false;
-    }
-    
-    public Disciplina cadastrar(){
-        disciplina.setNome(disciplina.getNome());
-        disciplina.setSemestre(disciplina.getSemestre());
-        disciplina.setCurso_id(disciplina.getCurso_id());
-        return disciplina;
-    }
     
     public void limpar(JTextField[] campos){
         for (JTextField cp : campos){

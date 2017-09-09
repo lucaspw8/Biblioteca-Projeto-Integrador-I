@@ -22,22 +22,11 @@ public class Disciplina implements Serializable{
     
     @Id
     @GeneratedValue
-    
     private int idDisciplina;
     @Column(name = "nome", nullable = false, length = 0)
     private String nome;
     @Column(name = "semestre", nullable = false, length = 2)
-    private int semestre;
-    @Column(name = "curso_id", nullable = false)
-    private int curso_id;
-
-    public int getCurso_id() {
-        return curso_id;
-    }
-
-    public void setCurso_id(int curso_id) {
-        this.curso_id = curso_id;
-    }
+    private String semestre;
 
     
     public int getIdDisciplina() {
@@ -56,11 +45,11 @@ public class Disciplina implements Serializable{
         this.nome = nome;
     }
 
-    public int getSemestre() {
+    public String getSemestre() {
         return semestre;
     }
 
-    public void setSemestre(int semestre) {
+    public void setSemestre(String semestre) {
         this.semestre = semestre;
     }
     

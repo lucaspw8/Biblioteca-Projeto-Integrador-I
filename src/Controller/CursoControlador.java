@@ -47,14 +47,20 @@ public class CursoControlador {
     }
     
     public void cadastrar(){
-        
-        //curso.setNome(curso.getNome());
-        //curso.setCoordenador(curso.getCoordenador());
-        
          
         CursoDAO cursoDAO = new CursoDAO();
         cursoDAO.cadastrar(curso);
         
+    }
+    
+    public void Excluir(){
+        CursoDAO dao = new CursoDAO();
+        dao.Remover(curso);
+    }
+    
+    public void Editar(){
+        CursoDAO dao = new CursoDAO();
+        dao.atualizar(curso);
     }
     
     public void pesquisar(){
@@ -62,12 +68,16 @@ public class CursoControlador {
         cursos = cursoDAO.pesquisar(curso);
     }
     
+    
+    public void ListaCurso(){
+        CursoDAO dao =  new CursoDAO();
+       cursos = dao.ListarCurso(curso);
+    }
+    
     public void atualizarTabela(JTable tabela) {
         
-        if (getCurso().getNome() == null) {
-            JOptionPane.showMessageDialog(null, "É necessário informar um nome.");
-        } else {
-            pesquisar();
+        
+           ListaCurso();
 
             List<Curso> cursosEncontrados = getCursos();
 
@@ -85,7 +95,7 @@ public class CursoControlador {
             }
 
             tabela.setModel(modelo);
-        }
+        
     }
     
     public void limpar(JTextField[] campos){

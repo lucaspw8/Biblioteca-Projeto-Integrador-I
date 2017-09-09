@@ -28,6 +28,8 @@ public class Curso extends javax.swing.JFrame {
     public Curso() {
         controlador = new CursoControlador();
         initComponents();
+        controlador.atualizarTabela(tbCurso);
+         txtId.setVisible(false);
     }
 
     /**
@@ -49,6 +51,7 @@ public class Curso extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
+        txtId = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         txtFiltro = new javax.swing.JTextField();
@@ -100,20 +103,21 @@ public class Curso extends javax.swing.JFrame {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${controlador.curso.nome}"), txtNome, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
+        txtId.setEditable(false);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${controlador.curso.idCurso}"), txtId, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        txtId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCoordenador)
-                    .addComponent(txtNome))
-                .addGap(15, 15, 15))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(57, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,6 +129,21 @@ public class Curso extends javax.swing.JFrame {
                         .addGap(158, 158, 158)
                         .addComponent(btnCadastrar)
                         .addGap(31, 31, 31))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCoordenador)
+                            .addComponent(txtNome))
+                        .addGap(15, 15, 15))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,7 +162,9 @@ public class Curso extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnCadastrar))
-                .addContainerGap(259, Short.MAX_VALUE))
+                .addGap(101, 101, 101)
+                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(138, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -169,6 +190,11 @@ public class Curso extends javax.swing.JFrame {
             }
         });
         tbCurso.getTableHeader().setReorderingAllowed(false);
+        tbCurso.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbCursoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbCurso);
         if (tbCurso.getColumnModel().getColumnCount() > 0) {
             tbCurso.getColumnModel().getColumn(0).setMinWidth(100);
@@ -177,9 +203,19 @@ public class Curso extends javax.swing.JFrame {
 
         btnExcluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnEditar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pesquisa.png"))); // NOI18N
 
@@ -290,7 +326,7 @@ public class Curso extends javax.swing.JFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
        if(controlador.verificar()){
-           JOptionPane.showMessageDialog(null,"O campo nome não pode estar em branco");
+           JOptionPane.showMessageDialog(null,"Os campos não podem estar em branco");
        }else{
            try {
                controlador.cadastrar();
@@ -301,6 +337,38 @@ public class Curso extends javax.swing.JFrame {
            
        }
     }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        try {
+            controlador.Editar();
+            controlador.atualizarTabela(tbCurso);
+            JOptionPane.showMessageDialog(null,"cadastrado ");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Erro ao cadastrar "+e);
+        }
+        
+        
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+         try {
+            controlador.Excluir();
+            JOptionPane.showMessageDialog(null,"Excluido");
+            controlador.atualizarTabela(tbCurso);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Erro "+e.getMessage());
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdActionPerformed
+
+    private void tbCursoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCursoMouseClicked
+        txtId.setText(tbCurso.getValueAt(tbCurso.getSelectedRow(), 0).toString());
+        txtNome.setText(tbCurso.getValueAt(tbCurso.getSelectedRow(), 1).toString());
+        txtCoordenador.setText(tbCurso.getValueAt(tbCurso.getSelectedRow(), 2).toString());
+    }//GEN-LAST:event_tbCursoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -361,6 +429,7 @@ public class Curso extends javax.swing.JFrame {
     private javax.swing.JTable tbCurso;
     private javax.swing.JTextField txtCoordenador;
     private javax.swing.JTextField txtFiltro;
+    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNome;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables

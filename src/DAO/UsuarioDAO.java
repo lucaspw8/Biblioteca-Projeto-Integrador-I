@@ -5,8 +5,7 @@
  */
 package DAO;
 
-
-import Model.Disciplina;
+import Model.Usuario;
 import java.util.List;
 import org.hibernate.HibernateError;
 import org.hibernate.HibernateException;
@@ -14,17 +13,16 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import util.HibernateUtil;
-
 /**
  *
- * @author Jefferson
+ * @author Lucas
  */
-public class DisciplinaDAO {
+public class UsuarioDAO {
     
-    private Session sessão;
-    private Transaction transacao;
+     private Session sessão;
+     private Transaction transacao;
     
-    public DisciplinaDAO(){
+    public UsuarioDAO(){
         //Aberta a sessão
         sessão = HibernateUtil.getSessionFactory().openSession();
         //Inicio da transação
@@ -46,11 +44,11 @@ public class DisciplinaDAO {
     public void setTransacao(Transaction transacao) {
         this.transacao = transacao;
     }
-    
-    public void cadastrar(Disciplina disciplina){
+ 
+    public void cadastrar(Usuario usuario){
         try {
         //Pedindo para salvar Disicplina
-        sessão.save(disciplina);
+        sessão.save(usuario);
         
         //Solicitando o envio dos dados ao banco
         transacao.commit();
@@ -60,24 +58,37 @@ public class DisciplinaDAO {
         
     }
     
-    public void atualizar(Disciplina disciplina){
-        sessão.update(disciplina);
-        transacao.commit();
+    /**
+     * Edita um Usuario passado como parametro
+     * @param usuario 
+     * @exception HibernateException
+     */
+    public void atualizar(Usuario usuario){
+        try {
+            sessão.update(usuario);
+            transacao.commit();
+        } catch (HibernateException e) {
+            throw new RuntimeException(e);
+        }
+        
+    }
+    /**
+     * Remove um usuario
+     * @param usuario 
+     * @exception HibernateException
+     */
+    public void Remover (Usuario usuario){
+        try {
+            sessão.delete(usuario);
+            transacao.commit();
+        } catch (HibernateException e) {
+            throw new RuntimeException(e);
+        }
+       
     }
     
-    public List<Disciplina> pesquisar(Disciplina disciplina){
+    public List<Usuario> ListarDisciplina(Usuario usuario){
         //like trabalha com case sensitive
-       return sessão.createCriteria(Disciplina.class).add(Restrictions.ilike("nome",disciplina.getNome()+"%")).list();
+       return sessão.createCriteria(Usuario.class).list();
     }
-    
-      public List<Disciplina> ListarDisciplina(Disciplina disciplina){
-        //like trabalha com case sensitive
-       return sessão.createCriteria(Disciplina.class).list();
-    }
-    
-    public void Remover (Disciplina disciplina){
-       sessão.delete(disciplina);
-       transacao.commit();
-    }
-    
 }

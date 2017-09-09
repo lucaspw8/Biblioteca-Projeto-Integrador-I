@@ -5,6 +5,7 @@
  */
 package View;
 import Controller.UsuarioControlador;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Lucas
@@ -19,6 +20,9 @@ public class Usuarios extends javax.swing.JFrame {
     public Usuarios() {
         controlador =  new UsuarioControlador();
         initComponents();
+        cbCargo.setSelectedIndex(0);
+        controlador.atualizarTabela(tbUsuarios);
+        txtId.setVisible(false);
     }
 
     public UsuarioControlador getControlador() {
@@ -54,6 +58,7 @@ public class Usuarios extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         passwdSenha = new javax.swing.JPasswordField();
+        txtId = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         txtFiltro = new javax.swing.JTextField();
@@ -113,6 +118,11 @@ public class Usuarios extends javax.swing.JFrame {
 
         btnCadastrar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCancelar.setText("Cancelar");
@@ -125,10 +135,17 @@ public class Usuarios extends javax.swing.JFrame {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${controlador.usuario.senha}"), passwdSenha, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${controlador.usuario.id}"), txtId, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel9)
+                .addGap(140, 140, 140))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,14 +169,13 @@ public class Usuarios extends javax.swing.JFrame {
                                 .addComponent(cbCargo, 0, 287, Short.MAX_VALUE)))
                         .addGap(15, 15, 15))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnCancelar)
-                        .addGap(158, 158, 158)
-                        .addComponent(btnCadastrar)
-                        .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel9)
-                .addGap(140, 140, 140))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(btnCancelar)
+                                .addGap(158, 158, 158)
+                                .addComponent(btnCadastrar))
+                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,7 +206,9 @@ public class Usuarios extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnCadastrar))
-                .addContainerGap(206, Short.MAX_VALUE))
+                .addGap(57, 57, 57)
+                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(129, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -216,6 +234,11 @@ public class Usuarios extends javax.swing.JFrame {
             }
         });
         tbUsuarios.getTableHeader().setReorderingAllowed(false);
+        tbUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbUsuariosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbUsuarios);
         if (tbUsuarios.getColumnModel().getColumnCount() > 0) {
             tbUsuarios.getColumnModel().getColumn(0).setMinWidth(50);
@@ -225,9 +248,19 @@ public class Usuarios extends javax.swing.JFrame {
 
         btnExcluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnEditar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pesquisa.png"))); // NOI18N
 
@@ -336,6 +369,52 @@ public class Usuarios extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        
+        try {
+            controlador.Cadastrar();
+            JOptionPane.showMessageDialog(null,"Cadastrado");
+            controlador.atualizarTabela(tbUsuarios);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Cadastrado "+e.getMessage());
+        }
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void tbUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbUsuariosMouseClicked
+        txtId.setText(tbUsuarios.getValueAt(tbUsuarios.getSelectedRow(), 0).toString());
+        txtNome.setText(tbUsuarios.getValueAt(tbUsuarios.getSelectedRow(), 1).toString());
+        txtLogin.setText(tbUsuarios.getValueAt(tbUsuarios.getSelectedRow(), 2).toString());
+        passwdSenha.setText(tbUsuarios.getValueAt(tbUsuarios.getSelectedRow(), 3).toString());
+        txtEmail.setText(tbUsuarios.getValueAt(tbUsuarios.getSelectedRow(), 4).toString()); 
+        cbCargo.setSelectedItem(tbUsuarios.getValueAt(tbUsuarios.getSelectedRow(), 5).toString());
+    }//GEN-LAST:event_tbUsuariosMouseClicked
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        try {
+            controlador.Editar();
+            controlador.atualizarTabela(tbUsuarios);
+            JOptionPane.showMessageDialog(null,"Editado");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Erro "+e.getMessage());
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+            int resposta = JOptionPane.showConfirmDialog(null,"Você realmente quer excluir o usuario "+controlador.getUsuario().getNome()+"?");
+            if(resposta == JOptionPane.YES_OPTION){
+        try {
+            controlador.Excluir();
+            controlador.atualizarTabela(tbUsuarios);
+            JOptionPane.showMessageDialog(null,"Excluido");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Erro "+e.getMessage());
+        }
+        
+      }
+       
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -347,7 +426,7 @@ public class Usuarios extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windowns".equals(info.getName())) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -401,6 +480,7 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JTable tbUsuarios;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFiltro;
+    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JTextField txtNome;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;

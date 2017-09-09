@@ -8,6 +8,7 @@ package DAO;
 import Model.Curso;
 import util.HibernateUtil;
 import java.util.List;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -45,28 +46,50 @@ public class CursoDAO {
     }
     
     public void cadastrar(Curso curso){
-        //Pedindo para salvar Curso
+        try {
+              //Pedindo para salvar Curso
         sessão.save(curso);
         
         //Solicitando o envio dos dados ao banco
         transacao.commit();
         //Encerra a sessão com o banco libeando a conecção
-        sessão.clear();
+        } catch (HibernateException e) {
+            throw new RuntimeException(e);
+        }
+      
+      
     }
     
     public void atualizar(Curso curso){
-        sessão.update(curso);
-        transacao.commit();
+        try {
+              sessão.update(curso);
+              transacao.commit();
+        } catch (HibernateException e) {
+            throw new RuntimeException(e);
+        }
+      
     }
     
+      public List<Curso> ListarCurso(Curso curso){
+        
+        List lista = sessão.createCriteria(Curso.class).list();
+       
+        return lista;
+     }
     public List<Curso> pesquisar(Curso curso){
         //like trabalha com case sensitive
         return sessão.createCriteria(Curso.class).add(Restrictions.ilike("nome",curso.getNome()+"%")).list();
     }
     
     public void Remover (Curso curso){
-       sessão.delete(curso);
-       transacao.commit();
+        try {
+             sessão.delete(curso);
+             transacao.commit();
+        } catch (HibernateException e) {
+            throw new RuntimeException(e);
+        }
+ 
+      
     }
     
 }

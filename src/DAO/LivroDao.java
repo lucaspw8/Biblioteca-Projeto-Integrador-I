@@ -6,6 +6,7 @@
 package DAO;
 
 import Model.Livro;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
@@ -22,6 +23,7 @@ import util.HibernateUtil;
 public class LivroDao {
      
     private Session sessão;
+    
     private Transaction transacao;
     
       public LivroDao(){
@@ -48,21 +50,63 @@ public class LivroDao {
     }
     
     /**
-     * Responsavel pelo cadastro dos livros
+     * Responsavel pelo envio dos dados ao Banco
      * @
      * @param livro
+     * @exception HibernateException
      */
-      
-    public void CadastrarLivro(Livro livro){
+      public void CadastrarLivro(Livro livro){
         try {
              sessão.save(livro);
              transacao.commit();
-            //Encerra a sessão com o banco libeando a conecção
-             sessão.close();
+          
+            
         } catch (HibernateException e) {
             
-            JOptionPane.showMessageDialog(null,"Erro ao cadastrar "+e.getMessage() );
+            throw new RuntimeException(e);
         }
        
-    }  
+    }
+      /**
+       * 
+       * @param livro
+       * @return 
+       */
+      public List<Livro> Listarlivro(Livro livro){
+        // Essa variavel foi criada para poder fechar a conecção com o banco antes do retorno
+        List lista = sessão.createCriteria(Livro.class).list();
+       
+        return lista;
+     }
+      
+      /**
+       * Faz a edição dos dados do livro no banco de dados
+       * @param livro
+       * @exception HibernateException
+       */
+       public void atualizar(Livro livro){
+           try {
+              
+               sessão.update(livro);
+               transacao.commit();
+               
+               
+           } catch (HibernateException e) {
+               throw new RuntimeException(e);
+           }
+        
+    }
+       
+       
+    public void Excluir(Livro livro){
+        try{
+           
+           sessão.delete("deletar", livro);
+           transacao.commit();
+            
+        } catch (HibernateException e){
+            
+            throw new RuntimeException(e);
+        }
+    }
 }
