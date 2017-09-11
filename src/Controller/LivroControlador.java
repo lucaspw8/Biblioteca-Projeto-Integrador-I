@@ -56,10 +56,44 @@ public class LivroControlador {
       livros = dao.Listarlivro(livro);
     }
     
+    public void PesquisarLivro(String texto){
+      LivroDao dao = new LivroDao();
+      livros = dao.Pesquisar(texto);
+    }
+    
     public void atualizarTabela(JTable tabela) {
         
         
             listaLivro();
+
+            List<Livro> LivrosEncontrados = getLivros();
+
+            DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+            
+            modelo.setNumRows(0);
+
+            for (int x = 0; x < LivrosEncontrados.size(); x++) {
+                modelo.insertRow(
+                        x,new String[]{
+                            String.valueOf(LivrosEncontrados.get(x).getId()),
+                            LivrosEncontrados.get(x).getTitulo(),
+                            LivrosEncontrados.get(x).getAutor(),
+                            LivrosEncontrados.get(x).getEdicao(),
+                            LivrosEncontrados.get(x).getEditora(),
+                            LivrosEncontrados.get(x).getAno(),
+                            LivrosEncontrados.get(x).getDisponivel(),
+                            Integer.toString(LivrosEncontrados.get(x).getQuantidade())
+                            
+                        });
+            }
+
+            tabela.setModel(modelo);
+        }
+    
+    public void atualizarTabela(JTable tabela,String pesquisa) {
+        
+        
+            PesquisarLivro(pesquisa);
 
             List<Livro> LivrosEncontrados = getLivros();
 

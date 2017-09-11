@@ -6,6 +6,7 @@
 package View;
 import Controller.LivroControlador;
 import java.awt.Color;
+import java.awt.event.KeyListener;
 
 
 import javax.swing.JOptionPane;
@@ -94,6 +95,11 @@ public class Livros extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Livros");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel2.setToolTipText("");
@@ -281,6 +287,15 @@ public class Livros extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Filtrar por Titulo:");
+
+        txtFiltro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtFiltro.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                txtFiltroInputMethodTextChanged(evt);
+            }
+        });
 
         tb_livro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tb_livro.setModel(new javax.swing.table.DefaultTableModel(
@@ -515,6 +530,20 @@ public class Livros extends javax.swing.JFrame {
                  JOptionPane.showMessageDialog(null,"Selecione um livro para excluir!!");
            }
     }//GEN-LAST:event_btnExcluirActionPerformed
+    //Função que executa enquanto a tela esta ativada
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        if(txtFiltro.getText().trim().equals("")){
+            controlador.atualizarTabela(tb_livro);
+        }else{
+            controlador.atualizarTabela(tb_livro, txtFiltro.getText());
+            System.out.println("Vc digitou "+txtFiltro.getText());
+        }
+        
+    }//GEN-LAST:event_formWindowActivated
+
+    private void txtFiltroInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtFiltroInputMethodTextChanged
+      
+    }//GEN-LAST:event_txtFiltroInputMethodTextChanged
 
     /**
      * @param args the command line arguments

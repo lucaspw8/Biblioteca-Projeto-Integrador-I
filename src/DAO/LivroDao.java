@@ -73,11 +73,19 @@ public class LivroDao {
        * @return 
        */
       public List<Livro> Listarlivro(Livro livro){
-        // Essa variavel foi criada para poder fechar a conecção com o banco antes do retorno
+       
         List lista = sessão.createCriteria(Livro.class).list();
        
         return lista;
      }
+      /**
+       * 
+       * @param texto
+       * @return 
+       */
+      public List<Livro> Pesquisar(String texto){
+          return sessão.createCriteria(Livro.class).add(Restrictions.ilike("titulo",texto+"%")).list();
+      }
       
       /**
        * Faz a edição dos dados do livro no banco de dados

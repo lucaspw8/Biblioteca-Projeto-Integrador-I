@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -21,13 +22,14 @@ public class Curso implements Serializable{
     //Irá identificar a tabela para o hibernate
     @Id
     //GeneratedValue diz que o campo Id, será auto_increment
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int idCurso;
    
     private String nome;
     @Column(name = "coordenador", nullable = false, length = 50)
     private String coordenador;
-
+    
+    private Disciplina disciplina;
     public int getIdCurso() {
         return idCurso;
     }
