@@ -4,15 +4,19 @@
  * and open the template in the editor.
  */
 package View;
+
 import Controller.CursoControlador;
+import java.awt.Color;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Lucas
  */
 public class Curso extends javax.swing.JFrame {
 
-  
     private CursoControlador controlador;
 
     public CursoControlador getControlador() {
@@ -22,14 +26,32 @@ public class Curso extends javax.swing.JFrame {
     public void setControlador(CursoControlador controlador) {
         this.controlador = controlador;
     }
-    
-    
-    
+
     public Curso() {
         controlador = new CursoControlador();
         initComponents();
         controlador.atualizarTabela(tbCurso);
-         txtId.setVisible(false);
+        txtId.setVisible(false);
+
+    }
+
+    /**
+     * Funcão que limpa o aviso da tela
+     */
+    public void LimparAviso() {
+        Timer timer = new Timer();
+        long Tempo = (3500);
+        TimerTask tarefa = new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    lbAviso.setText(" ");
+                } catch (Exception e) {
+
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(tarefa, Tempo, Tempo);
     }
 
     /**
@@ -52,6 +74,7 @@ public class Curso extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         txtId = new javax.swing.JTextField();
+        lbAviso = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         txtFiltro = new javax.swing.JTextField();
@@ -114,21 +137,12 @@ public class Curso extends javax.swing.JFrame {
             }
         });
 
+        lbAviso.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(57, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(140, 140, 140))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnCancelar)
-                        .addGap(158, 158, 158)
-                        .addComponent(btnCadastrar)
-                        .addGap(31, 31, 31))))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,9 +155,21 @@ public class Curso extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbAviso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtCoordenador)
                             .addComponent(txtNome))
                         .addGap(15, 15, 15))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(59, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(140, 140, 140))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnCancelar)
+                        .addGap(158, 158, 158)
+                        .addComponent(btnCadastrar)
+                        .addGap(31, 31, 31))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,7 +184,9 @@ public class Curso extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtCoordenador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(76, 76, 76)
+                .addGap(32, 32, 32)
+                .addComponent(lbAviso, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnCadastrar))
@@ -233,7 +261,7 @@ public class Curso extends javax.swing.JFrame {
                 .addGap(52, 52, 52))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(83, 83, 83)
@@ -325,38 +353,60 @@ public class Curso extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-       if(controlador.verificar()){
-           JOptionPane.showMessageDialog(null,"Os campos não podem estar em branco");
-       }else{
-           try {
-               controlador.cadastrar();
-               JOptionPane.showMessageDialog(null,"Cadastrado com sucesso");
-           } catch (Exception e) {
-               JOptionPane.showMessageDialog(null,"Erro ao cadastrar "+e);
-           }
-           
-       }
+        if (controlador.verificar()) {
+            JOptionPane.showMessageDialog(null, "Os campos não podem estar em branco");
+        } else {
+            try {
+                controlador.cadastrar();
+                lbAviso.setForeground(Color.GREEN);
+                lbAviso.setText("Curso Cadastrado !");
+                LimparAviso();
+            } catch (Exception e) {
+                lbAviso.setForeground(Color.red);
+                lbAviso.setText("Erro ao cadastrar! " + e.getMessage());
+                LimparAviso();
+            }
+
+        }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         try {
             controlador.Editar();
             controlador.atualizarTabela(tbCurso);
-            JOptionPane.showMessageDialog(null,"cadastrado ");
+            lbAviso.setForeground(Color.GREEN);
+            lbAviso.setText("Curso Editado !");
+            LimparAviso();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Erro ao cadastrar "+e);
+            lbAviso.setForeground(Color.red);
+            lbAviso.setText("Erro ao Editar! " + e.getMessage());
+            LimparAviso();
+
         }
-        
-        
+
+
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-         try {
-            controlador.Excluir();
-            JOptionPane.showMessageDialog(null,"Excluido");
-            controlador.atualizarTabela(tbCurso);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Erro "+e.getMessage());
+        if (tbCurso.getSelectedRow() >= 0) {
+            int resposta = JOptionPane.showConfirmDialog(null, "Você realmente quer excluir o curso " + controlador.getCurso().getNome() + "?");
+            if (resposta == JOptionPane.YES_OPTION) {
+                try {
+                    controlador.Excluir();
+                    controlador.atualizarTabela(tbCurso);
+                    lbAviso.setForeground(Color.GREEN);
+                    lbAviso.setText("Curso Excluido!");
+                    LimparAviso();
+                } catch (Exception e) {
+                    lbAviso.setForeground(Color.RED);
+                    lbAviso.setText("Erro ao Excluir ! " + e.getMessage());
+                    LimparAviso();
+                }
+            }
+        } else {
+            lbAviso.setForeground(Color.RED);
+            lbAviso.setText("Seleciona um Cusro antes !");
+            LimparAviso();
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
@@ -426,6 +476,7 @@ public class Curso extends javax.swing.JFrame {
     private javax.swing.JMenu jm_Disciplinas;
     private javax.swing.JMenu jm_Inicio;
     private javax.swing.JMenu jm_Usuarios;
+    private javax.swing.JLabel lbAviso;
     private javax.swing.JTable tbCurso;
     private javax.swing.JTextField txtCoordenador;
     private javax.swing.JTextField txtFiltro;

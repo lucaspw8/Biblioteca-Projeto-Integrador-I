@@ -4,8 +4,13 @@
  * and open the template in the editor.
  */
 package View;
+
 import Controller.DisciplinaControlador;
+import java.awt.Color;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Lucas
@@ -21,7 +26,6 @@ public class Disciplinas extends javax.swing.JFrame {
     public void setControlador(DisciplinaControlador controlador) {
         this.controlador = controlador;
     }
-    
 
     public Disciplinas() {
         controlador = new DisciplinaControlador();
@@ -29,6 +33,22 @@ public class Disciplinas extends javax.swing.JFrame {
         controlador.atualizarTabela(tbDisciplina);
         txtId.setVisible(false);
         cbSemestre.setSelectedItem("1º");
+    }
+
+    public void LimparAviso() {
+        Timer timer = new Timer();
+        long Tempo = (3500);
+        TimerTask tarefa = new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    lbAviso.setText(" ");
+                } catch (Exception e) {
+
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(tarefa, Tempo, Tempo);
     }
 
     /**
@@ -53,6 +73,7 @@ public class Disciplinas extends javax.swing.JFrame {
         cbSemestre = new javax.swing.JComboBox<>();
         txtCurso = new javax.swing.JTextField();
         txtId = new javax.swing.JTextField();
+        lbAviso = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
@@ -122,6 +143,8 @@ public class Disciplinas extends javax.swing.JFrame {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${controlador.disciplina.idDisciplina}"), txtId, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
+        lbAviso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -134,24 +157,25 @@ public class Disciplinas extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
+                        .addComponent(btnCadastrar)
+                        .addGap(51, 51, 51))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1)
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbSemestre, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtCurso, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(61, 61, 61))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
-                        .addComponent(btnCadastrar)
-                        .addGap(51, 51, 51))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbAviso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtNome)
+                            .addComponent(cbSemestre, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtCurso))
+                        .addGap(61, 61, 61))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,7 +194,9 @@ public class Disciplinas extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(115, 115, 115)
+                .addGap(57, 57, 57)
+                .addComponent(lbAviso, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnCadastrar))
@@ -319,7 +345,7 @@ public class Disciplinas extends javax.swing.JFrame {
                 .addGap(52, 52, 52))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -400,36 +426,56 @@ public class Disciplinas extends javax.swing.JFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         try {
-             controlador.cadastrar();
-             controlador.atualizarTabela(tbDisciplina);
-             JOptionPane.showMessageDialog(null, "cadastrado");
+            controlador.cadastrar();
+            controlador.atualizarTabela(tbDisciplina);
+            lbAviso.setForeground(Color.GREEN);
+            lbAviso.setText("Disciplina Cadastrada !");
+            LimparAviso();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro "+e.getMessage());
+            lbAviso.setForeground(Color.RED);
+            lbAviso.setText("Erro ao Cadastrar ! ");
+            LimparAviso();
         }
-       
+
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         try {
             controlador.EditarDisciplina();
             controlador.atualizarTabela(tbDisciplina);
+            lbAviso.setForeground(Color.GREEN);
+            lbAviso.setText("Disciplina Editada !");
+            LimparAviso();
         } catch (Exception e) {
-            
+            lbAviso.setForeground(Color.RED);
+            lbAviso.setText("Erro ao editar ! ");
+            LimparAviso();
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        try {
-            controlador.ExcluirLivro();
-            controlador.atualizarTabela(tbDisciplina);
-            JOptionPane.showMessageDialog(null,"Cadastrado");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Erro "+e.getMessage());
+        if (tbDisciplina.getSelectedRow() >= 0) {
+            int resposta = JOptionPane.showConfirmDialog(null, "Você realmente quer excluir a Disciplina" + controlador.getDisciplina().getNome() + "?");
+            if (resposta == JOptionPane.YES_OPTION) {
+                try {
+                    controlador.ExcluirLivro();
+                    controlador.atualizarTabela(tbDisciplina);
+                    lbAviso.setForeground(Color.GREEN);
+                    lbAviso.setText("Escluido com sucesso!");
+                    LimparAviso();
+                } catch (Exception e) {
+                    lbAviso.setForeground(Color.RED);
+                    lbAviso.setText("Erro ao excluir !");
+                    LimparAviso();
+                }
+            }
+        } else {
+
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void tbDisciplinaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDisciplinaMouseClicked
-       //Atribuindo os valores da tabela aos campos
+        //Atribuindo os valores da tabela aos campos
         txtId.setText(tbDisciplina.getValueAt(tbDisciplina.getSelectedRow(), 0).toString());
         txtNome.setText(tbDisciplina.getValueAt(tbDisciplina.getSelectedRow(), 1).toString());
         cbSemestre.setSelectedItem(tbDisciplina.getValueAt(tbDisciplina.getSelectedRow(), 2).toString());
@@ -498,6 +544,7 @@ public class Disciplinas extends javax.swing.JFrame {
     private javax.swing.JMenu jm_Disciplinas;
     private javax.swing.JMenu jm_Inicio;
     private javax.swing.JMenu jm_Usuarios;
+    private javax.swing.JLabel lbAviso;
     private javax.swing.JTable tbCurso;
     private javax.swing.JTable tbDisciplina;
     private javax.swing.JTextField txtCurso;

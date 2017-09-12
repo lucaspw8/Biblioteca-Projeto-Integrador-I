@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 package View;
+
 import Controller.LivroControlador;
 import java.awt.Color;
-import java.awt.event.KeyListener;
-
 
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  *
  * @author Lucas
@@ -21,18 +22,16 @@ public class Livros extends javax.swing.JFrame {
 
     public LivroControlador getControlador() {
         return controlador;
-        
+
     }
 
     public void setControlador(LivroControlador controlador) {
         this.controlador = controlador;
     }
-    
-    
- 
+
     public Livros() {
         controlador = new LivroControlador();
-       
+
         initComponents();
         //campo qtd estava vindo com valor 0 isso tira o valor no inicio 
         txtQuantidade.setText(" ");
@@ -41,11 +40,28 @@ public class Livros extends javax.swing.JFrame {
         txtId.setVisible(false);
         //Define que o combobox vai iniciar por padrao com o valor Físico
         cbDisponibilidade.setSelectedItem("Físico");
+
     }
 
-    public void LimparAviso(){
-        lbAviso.setText(" ");
+    /**
+     * Funcão que limpa o aviso da tela
+     */
+    public void LimparAviso() {
+        Timer timer = new Timer();
+        long Tempo = (3500);
+        TimerTask tarefa = new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    lbAviso.setText(" ");
+                } catch (Exception e) {
+
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(tarefa, Tempo, Tempo);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -461,22 +477,21 @@ public class Livros extends javax.swing.JFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         try {
-            
-              controlador.CadastrarLivros();
-                       
-             lbAviso.setForeground(Color.GREEN);
-             lbAviso.setText("Livro Cadastrado !");
-             controlador.atualizarTabela(tb_livro);
-            
-             
+
+            controlador.CadastrarLivros();
+            lbAviso.setForeground(Color.GREEN);
+            lbAviso.setText("Livro Cadastrado !");
+            controlador.atualizarTabela(tb_livro);
+            LimparAviso();
+
         } catch (Exception e) {
-            
+
             lbAviso.setForeground(Color.red);
-            lbAviso.setText("Erro ao Cadastrar "+e.getMessage());
+            lbAviso.setText("Erro ao Cadastrar " + e.getMessage());
         }
-       
+
     }//GEN-LAST:event_btnCadastrarActionPerformed
-    
+
     private void tb_livroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_livroMouseClicked
         //Atribuindo os valores da tabela aos campos
         txtId.setText(tb_livro.getValueAt(tb_livro.getSelectedRow(), 0).toString());
@@ -486,63 +501,66 @@ public class Livros extends javax.swing.JFrame {
         txtEditora.setText(tb_livro.getValueAt(tb_livro.getSelectedRow(), 4).toString());
         txtAno.setText(tb_livro.getValueAt(tb_livro.getSelectedRow(), 5).toString());
         txtQuantidade.setText(tb_livro.getValueAt(tb_livro.getSelectedRow(), 7).toString());
-        cbDisponibilidade.setSelectedItem(tb_livro.getValueAt(tb_livro.getSelectedRow(),6));
+        cbDisponibilidade.setSelectedItem(tb_livro.getValueAt(tb_livro.getSelectedRow(), 6));
     }//GEN-LAST:event_tb_livroMouseClicked
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         //Verifica se foi selecionado um livro para edição
-        if(tb_livro.getSelectedRow() >= 0){ 
-        try {
-            controlador.EditarLivro();
-            lbAviso.setForeground(Color.GREEN);
-            lbAviso.setText("Livro Editado !");
-            controlador.atualizarTabela(tb_livro);
-            
-              
-        } catch (Exception e) {
-            lbAviso.setForeground(Color.red);
-            lbAviso.setText("Erro ao Editar !!"+e.getMessage());
-            JOptionPane.showMessageDialog(null,"Erro ao Editar !!"+e.getMessage());
+        if (tb_livro.getSelectedRow() >= 0) {
+            try {
+                controlador.EditarLivro();
+                lbAviso.setForeground(Color.GREEN);
+                lbAviso.setText("Livro Editado !");
+                controlador.atualizarTabela(tb_livro);
+                LimparAviso();
+
+            } catch (Exception e) {
+                lbAviso.setForeground(Color.red);
+                lbAviso.setText("Erro ao Editar !!" + e.getMessage());
+                JOptionPane.showMessageDialog(null, "Erro ao Editar !!" + e.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um livro para editar!!");
         }
-       }else{
-                 JOptionPane.showMessageDialog(null,"Selecione um livro para editar!!");
-           }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         //Verifica se foi selecionado um livro para exclusão
-        if(tb_livro.getSelectedRow() >= 0){  
-        try {
-             
-            controlador.ExcluirLivro();
-            lbAviso.setForeground(Color.GREEN);
-            lbAviso.setText("Livro Excluido !");
-            controlador.atualizarTabela(tb_livro);
-           
-             
-        } catch (Exception e) {
-            lbAviso.setForeground(Color.red);
-            lbAviso.setText("Erro ao Excluir!!"+e.getMessage());
-            JOptionPane.showMessageDialog(null,"Erro ao Excluir !!"+e.getMessage());
+        if (tb_livro.getSelectedRow() >= 0) {
+            int resposta = JOptionPane.showConfirmDialog(null, "Você realmente quer excluir o Livro " + controlador.getLivro().getTitulo()+ "?");
+            if (resposta == JOptionPane.YES_OPTION) {
+            try {
+
+                controlador.ExcluirLivro();
+                lbAviso.setForeground(Color.GREEN);
+                controlador.atualizarTabela(tb_livro);
+                lbAviso.setText("Livro Excluido !");
+                LimparAviso();
+
+            } catch (Exception e) {
+                lbAviso.setForeground(Color.red);
+                lbAviso.setText("Erro ao Excluir!!" + e.getMessage());
+                LimparAviso();
+            }
+            }
+        } else {
+            lbAviso.setText("Selecione um livro para excluir!!");
+            LimparAviso();
         }
-        }
-        else{
-                 JOptionPane.showMessageDialog(null,"Selecione um livro para excluir!!");
-           }
     }//GEN-LAST:event_btnExcluirActionPerformed
     //Função que executa enquanto a tela esta ativada
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        if(txtFiltro.getText().trim().equals("")){
+        if (txtFiltro.getText().trim().equals("")) {
             controlador.atualizarTabela(tb_livro);
-        }else{
+        } else {
             controlador.atualizarTabela(tb_livro, txtFiltro.getText());
-            System.out.println("Vc digitou "+txtFiltro.getText());
+
         }
-        
+
     }//GEN-LAST:event_formWindowActivated
 
     private void txtFiltroInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtFiltroInputMethodTextChanged
-      
+
     }//GEN-LAST:event_txtFiltroInputMethodTextChanged
 
     /**

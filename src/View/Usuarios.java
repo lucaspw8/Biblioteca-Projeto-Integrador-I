@@ -4,21 +4,23 @@
  * and open the template in the editor.
  */
 package View;
+
 import Controller.UsuarioControlador;
+import java.awt.Color;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Lucas
  */
 public class Usuarios extends javax.swing.JFrame {
 
-   
-    
     private UsuarioControlador controlador;
-    
- 
+
     public Usuarios() {
-        controlador =  new UsuarioControlador();
+        controlador = new UsuarioControlador();
         initComponents();
         cbCargo.setSelectedIndex(0);
         controlador.atualizarTabela(tbUsuarios);
@@ -31,6 +33,22 @@ public class Usuarios extends javax.swing.JFrame {
 
     public void setControlador(UsuarioControlador controlador) {
         this.controlador = controlador;
+    }
+
+    public void LimparAviso() {
+        Timer timer = new Timer();
+        long Tempo = (3500);
+        TimerTask tarefa = new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    lbAviso.setText(" ");
+                } catch (Exception e) {
+
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(tarefa, Tempo, Tempo);
     }
 
     /**
@@ -59,6 +77,7 @@ public class Usuarios extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         passwdSenha = new javax.swing.JPasswordField();
         txtId = new javax.swing.JTextField();
+        lbAviso = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         txtFiltro = new javax.swing.JTextField();
@@ -138,6 +157,8 @@ public class Usuarios extends javax.swing.JFrame {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${controlador.usuario.id}"), txtId, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
+        lbAviso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -163,7 +184,7 @@ public class Usuarios extends javax.swing.JFrame {
                                     .addComponent(passwdSenha, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtLogin, javax.swing.GroupLayout.Alignment.LEADING)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(cbCargo, 0, 287, Short.MAX_VALUE)))
@@ -176,6 +197,10 @@ public class Usuarios extends javax.swing.JFrame {
                                 .addComponent(btnCadastrar))
                             .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(79, 79, 79)
+                .addComponent(lbAviso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(15, 15, 15))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,7 +227,9 @@ public class Usuarios extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(cbCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(83, 83, 83)
+                .addGap(33, 33, 33)
+                .addComponent(lbAviso, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnCadastrar))
@@ -370,14 +397,18 @@ public class Usuarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        
+
         try {
             controlador.Cadastrar();
-            JOptionPane.showMessageDialog(null,"Cadastrado");
             controlador.atualizarTabela(tbUsuarios);
-            
+            lbAviso.setForeground(Color.GREEN);
+            lbAviso.setText("Usuario Cadastrado !");
+            LimparAviso();
+
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Cadastrado "+e.getMessage());
+            lbAviso.setForeground(Color.RED);
+            lbAviso.setText("Erro ao cadastrar! "+e.getMessage());
+            LimparAviso();
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -386,7 +417,7 @@ public class Usuarios extends javax.swing.JFrame {
         txtNome.setText(tbUsuarios.getValueAt(tbUsuarios.getSelectedRow(), 1).toString());
         txtLogin.setText(tbUsuarios.getValueAt(tbUsuarios.getSelectedRow(), 2).toString());
         passwdSenha.setText(tbUsuarios.getValueAt(tbUsuarios.getSelectedRow(), 3).toString());
-        txtEmail.setText(tbUsuarios.getValueAt(tbUsuarios.getSelectedRow(), 4).toString()); 
+        txtEmail.setText(tbUsuarios.getValueAt(tbUsuarios.getSelectedRow(), 4).toString());
         cbCargo.setSelectedItem(tbUsuarios.getValueAt(tbUsuarios.getSelectedRow(), 5).toString());
     }//GEN-LAST:event_tbUsuariosMouseClicked
 
@@ -394,25 +425,39 @@ public class Usuarios extends javax.swing.JFrame {
         try {
             controlador.Editar();
             controlador.atualizarTabela(tbUsuarios);
-            JOptionPane.showMessageDialog(null,"Editado");
+            lbAviso.setForeground(Color.GREEN);
+            lbAviso.setText("Usuario editado !");
+            LimparAviso();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Erro "+e.getMessage());
+            lbAviso.setForeground(Color.RED);
+            lbAviso.setText("Erro ao editar !");
+            LimparAviso();
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-            int resposta = JOptionPane.showConfirmDialog(null,"Você realmente quer excluir o usuario "+controlador.getUsuario().getNome()+"?");
-            if(resposta == JOptionPane.YES_OPTION){
-        try {
-            controlador.Excluir();
-            controlador.atualizarTabela(tbUsuarios);
-            JOptionPane.showMessageDialog(null,"Excluido");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Erro "+e.getMessage());
+        if (tbUsuarios.getSelectedRow() >= 0) {
+            int resposta = JOptionPane.showConfirmDialog(null, "Você realmente quer excluir o usuario " + controlador.getUsuario().getNome() + "?");
+            if (resposta == JOptionPane.YES_OPTION) {
+                try {
+                    controlador.Excluir();
+                    controlador.atualizarTabela(tbUsuarios);
+                    lbAviso.setForeground(Color.GREEN);
+                    lbAviso.setText("Usuario excluido !");
+                    LimparAviso();
+                } catch (Exception e) {
+                    lbAviso.setForeground(Color.RED);
+                    lbAviso.setText("Erro ao excluir !");
+                    LimparAviso();
+                }
+
+            }
+        } else {
+            lbAviso.setForeground(Color.black);
+            lbAviso.setText("Selecione o Usuario para excluir !");
+            LimparAviso();
         }
-        
-      }
-       
+
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
@@ -476,6 +521,7 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JMenu jm_Disciplinas;
     private javax.swing.JMenu jm_Inicio;
     private javax.swing.JMenu jm_Usuarios;
+    private javax.swing.JLabel lbAviso;
     private javax.swing.JPasswordField passwdSenha;
     private javax.swing.JTable tbUsuarios;
     private javax.swing.JTextField txtEmail;
