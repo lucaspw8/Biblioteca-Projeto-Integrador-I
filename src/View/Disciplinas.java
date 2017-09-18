@@ -448,7 +448,7 @@ public class Disciplinas extends javax.swing.JFrame {
             LimparAviso();
         } catch (Exception e) {
             lbAviso.setForeground(Color.RED);
-            lbAviso.setText("Erro ao editar ! ");
+            lbAviso.setText("Erro ao editar ! "+e.getMessage());
             LimparAviso();
         }
     }//GEN-LAST:event_btnEditarActionPerformed

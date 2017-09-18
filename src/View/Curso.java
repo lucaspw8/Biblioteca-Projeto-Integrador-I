@@ -360,6 +360,7 @@ public class Curso extends javax.swing.JFrame {
                 controlador.cadastrar();
                 lbAviso.setForeground(Color.GREEN);
                 lbAviso.setText("Curso Cadastrado !");
+                controlador.atualizarTabela(tbCurso);
                 LimparAviso();
             } catch (Exception e) {
                 lbAviso.setForeground(Color.red);

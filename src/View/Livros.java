@@ -397,10 +397,11 @@ public class Livros extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7)
+                        .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -506,7 +507,7 @@ public class Livros extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         //Verifica se foi selecionado um livro para edição
-        if (tb_livro.getSelectedRow() >= 0) {
+        
             try {
                 controlador.EditarLivro();
                 lbAviso.setForeground(Color.GREEN);
@@ -517,16 +518,14 @@ public class Livros extends javax.swing.JFrame {
             } catch (Exception e) {
                 lbAviso.setForeground(Color.red);
                 lbAviso.setText("Erro ao Editar !!" + e.getMessage());
-                JOptionPane.showMessageDialog(null, "Erro ao Editar !!" + e.getMessage());
+                LimparAviso();
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Selecione um livro para editar!!");
-        }
+        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         //Verifica se foi selecionado um livro para exclusão
-        if (tb_livro.getSelectedRow() >= 0) {
+        if(tb_livro.getSelectedRow() >= 0) {
             int resposta = JOptionPane.showConfirmDialog(null, "Você realmente quer excluir o Livro " + controlador.getLivro().getTitulo()+ "?");
             if (resposta == JOptionPane.YES_OPTION) {
             try {
@@ -552,7 +551,7 @@ public class Livros extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         if (txtFiltro.getText().trim().equals("")) {
             controlador.atualizarTabela(tb_livro);
-        } else {
+        }else{
             controlador.atualizarTabela(tb_livro, txtFiltro.getText());
 
         }

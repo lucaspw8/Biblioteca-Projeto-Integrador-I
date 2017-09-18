@@ -19,22 +19,30 @@ import util.HibernateUtil;
  */
 public class UsuarioDAO {
     
-     private Session sessão;
+     private Session sessao;
      private Transaction transacao;
     
-    public UsuarioDAO(){
-        //Aberta a sessão
-        sessão = HibernateUtil.getSessionFactory().openSession();
-        //Inicio da transação
-        transacao = sessão.beginTransaction();
+     /**
+     * Abre a coneção e inicia a transação
+     */
+    private void OpenConnection(){
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        transacao = sessao.beginTransaction();
+    }
+   /**
+     * Realiza o commit e depois encerra a sessao
+     */
+    private void CloseConnection(){
+        transacao.commit();
+        sessao.close();
     }
 
-    public Session getSessão() {
-        return sessão;
+    public Session getSessao() {
+        return sessao;
     }
 
-    public void setSessão(Session sessão) {
-        this.sessão = sessão;
+    public void setSessao(Session sessao) {
+        this.sessao = sessao;
     }
 
     public Transaction getTransacao() {
@@ -47,11 +55,10 @@ public class UsuarioDAO {
  
     public void cadastrar(Usuario usuario){
         try {
+         OpenConnection();
         //Pedindo para salvar Disicplina
-        sessão.save(usuario);
-        
-        //Solicitando o envio dos dados ao banco
-        transacao.commit();
+        sessao.save(usuario);
+        CloseConnection();
         } catch (HibernateException e) {
             throw new RuntimeException(e);
         }
@@ -65,8 +72,9 @@ public class UsuarioDAO {
      */
     public void atualizar(Usuario usuario){
         try {
-            sessão.update(usuario);
-            transacao.commit();
+            OpenConnection();
+            sessao.update(usuario);
+           CloseConnection();
         } catch (HibernateException e) {
             throw new RuntimeException(e);
         }
@@ -79,8 +87,9 @@ public class UsuarioDAO {
      */
     public void Remover (Usuario usuario){
         try {
-            sessão.delete(usuario);
-            transacao.commit();
+            OpenConnection();
+            sessao.delete(usuario);
+           CloseConnection();
         } catch (HibernateException e) {
             throw new RuntimeException(e);
         }
@@ -88,7 +97,8 @@ public class UsuarioDAO {
     }
     
     public List<Usuario> ListarDisciplina(Usuario usuario){
-        //like trabalha com case sensitive
-       return sessão.createCriteria(Usuario.class).list();
+       OpenConnection();
+       List lista = sessao.createCriteria(Usuario.class).list();
+       return lista;
     }
 }

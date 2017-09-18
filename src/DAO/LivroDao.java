@@ -22,23 +22,30 @@ import util.HibernateUtil;
  */
 public class LivroDao {
      
-    private Session sessão;
+    private Session sessao;
     
     private Transaction transacao;
-    
-      public LivroDao(){
-        //Aberta a sessão
-        sessão = HibernateUtil.getSessionFactory().openSession();
-        //Inicio da transação
-        transacao = sessão.beginTransaction();
+    /**
+     * Abre a coneção e inicia a transação
+     */
+    private void OpenConnection(){
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        transacao = sessao.beginTransaction();
+    }
+   /**
+     * Realiza o commit e depois encerra a sessao
+     */
+    private void CloseConnection(){
+        transacao.commit();
+        sessao.close();
     }
 
-    public Session getSessão() {
-        return sessão;
+    public Session getSessao() {
+        return sessao;
     }
 
-    public void setSessão(Session sessão) {
-        this.sessão = sessão;
+    public void setSessao(Session sessao) {
+        this.sessao = sessao;
     }
 
     public Transaction getTransacao() {
@@ -57,8 +64,9 @@ public class LivroDao {
      */
       public void CadastrarLivro(Livro livro){
         try {
-             sessão.save(livro);
-             transacao.commit();
+            OpenConnection();
+             sessao.save(livro);
+             CloseConnection();
           
             
         } catch (HibernateException e) {
@@ -73,9 +81,9 @@ public class LivroDao {
        * @return 
        */
       public List<Livro> Listarlivro(Livro livro){
-       
-        List lista = sessão.createCriteria(Livro.class).list();
-       
+       OpenConnection();
+        List lista = sessao.createCriteria(Livro.class).list();
+        CloseConnection();
         return lista;
      }
       /**
@@ -84,7 +92,10 @@ public class LivroDao {
        * @return 
        */
       public List<Livro> Pesquisar(String texto){
-          return sessão.createCriteria(Livro.class).add(Restrictions.ilike("titulo",texto+"%")).list();
+          OpenConnection();
+          List lista =sessao.createCriteria(Livro.class).add(Restrictions.ilike("titulo",texto+"%")).list();
+          CloseConnection();
+          return lista;
       }
       
       /**
@@ -94,9 +105,9 @@ public class LivroDao {
        */
        public void atualizar(Livro livro){
            try {
-              
-               sessão.update(livro);
-               transacao.commit();
+               OpenConnection();
+               sessao.update(livro);
+               CloseConnection();
                
                
            } catch (HibernateException e) {
@@ -108,9 +119,9 @@ public class LivroDao {
        
     public void Excluir(Livro livro){
         try{
-           
-           sessão.delete("deletar", livro);
-           transacao.commit();
+           OpenConnection();
+           sessao.delete("deletar", livro);
+           CloseConnection();
             
         } catch (HibernateException e){
             

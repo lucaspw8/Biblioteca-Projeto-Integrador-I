@@ -21,22 +21,25 @@ import util.HibernateUtil;
  */
 public class DisciplinaDAO {
     
-    private Session sessão;
+    private Session sessao;
     private Transaction transacao;
     
-    public DisciplinaDAO(){
-        //Aberta a sessão
-        sessão = HibernateUtil.getSessionFactory().openSession();
-        //Inicio da transação
-        transacao = sessão.beginTransaction();
+    private void OpenConnection(){
+        sessao = HibernateUtil.getSessionFactory().openSession();
+        transacao = sessao.beginTransaction();
+    }
+   
+    private void CloseConnection(){
+        transacao.commit();
+        sessao.close();
     }
 
-    public Session getSessão() {
-        return sessão;
+    public Session getSessao() {
+        return sessao;
     }
 
-    public void setSessão(Session sessão) {
-        this.sessão = sessão;
+    public void setSessao(Session sessao) {
+        this.sessao = sessao;
     }
 
     public Transaction getTransacao() {
@@ -49,11 +52,12 @@ public class DisciplinaDAO {
     
     public void cadastrar(Disciplina disciplina){
         try {
+        OpenConnection();
         //Pedindo para salvar Disicplina
-        sessão.save(disciplina);
+        sessao.save(disciplina);
+        CloseConnection();
         
-        //Solicitando o envio dos dados ao banco
-        transacao.commit();
+        
         } catch (HibernateException e) {
             throw new RuntimeException(e);
         }
@@ -61,23 +65,29 @@ public class DisciplinaDAO {
     }
     
     public void atualizar(Disciplina disciplina){
-        sessão.update(disciplina);
-        transacao.commit();
+        OpenConnection();
+        sessao.update(disciplina);
+        CloseConnection();
     }
     
     public List<Disciplina> pesquisar(Disciplina disciplina){
+        OpenConnection();
         //like trabalha com case sensitive
-       return sessão.createCriteria(Disciplina.class).add(Restrictions.ilike("nome",disciplina.getNome()+"%")).list();
+      
+       return sessao.createCriteria(Disciplina.class).add(Restrictions.ilike("nome",disciplina.getNome()+"%")).list();
     }
     
       public List<Disciplina> ListarDisciplina(Disciplina disciplina){
+          OpenConnection();
         //like trabalha com case sensitive
-       return sessão.createCriteria(Disciplina.class).list();
+        
+        return sessao.createCriteria(Disciplina.class).list();
     }
     
     public void Remover (Disciplina disciplina){
-       sessão.delete(disciplina);
-       transacao.commit();
+       OpenConnection();
+       sessao.delete(disciplina);
+       CloseConnection();
     }
     
 }
