@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.CursoControlador;
 import Controller.DisciplinaControlador;
 import Model.Usuario;
 import java.awt.Color;
@@ -19,8 +20,17 @@ import javax.swing.JOptionPane;
 public class Disciplinas extends javax.swing.JFrame {
 
     private DisciplinaControlador controlador;
+    private CursoControlador controladorCurso;
     Usuario usuario;
-    
+
+    public CursoControlador getControladorCurso() {
+        return controladorCurso;
+    }
+
+    public void setControladorCurso(CursoControlador controladorCurso) {
+        this.controladorCurso = controladorCurso;
+    }
+
     public DisciplinaControlador getControlador() {
         return controlador;
     }
@@ -31,12 +41,15 @@ public class Disciplinas extends javax.swing.JFrame {
 
     public Disciplinas(Usuario usuario) {
         controlador = new DisciplinaControlador();
+        controladorCurso = new CursoControlador();
         initComponents();
         controlador.atualizarTabela(tbDisciplina);
-        txtId.setVisible(false);
+        controladorCurso.atualizarTabela(tbCurso);
+        txtIdDisciplina.setVisible(false);
+        txtIdCurso.setVisible(false);
         cbSemestre.setSelectedItem("1º");
         this.usuario = usuario;
-        if ("Funcionario".equals(usuario.getCargo())){
+        if ("Funcionario".equals(usuario.getCargo())) {
             jm_Usuarios.setVisible(false);
             btnEditar.setVisible(false);
             btnCadastrar.setVisible(false);
@@ -81,8 +94,9 @@ public class Disciplinas extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         cbSemestre = new javax.swing.JComboBox<>();
         txtCurso = new javax.swing.JTextField();
-        txtId = new javax.swing.JTextField();
+        txtIdDisciplina = new javax.swing.JTextField();
         lbAviso = new javax.swing.JLabel();
+        txtIdCurso = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
@@ -154,10 +168,13 @@ public class Disciplinas extends javax.swing.JFrame {
         txtCurso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtCurso.setText("Selecione o curso na tabela ao lado");
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${controlador.disciplina.idDisciplina}"), txtId, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${controlador.disciplina.idDisciplina}"), txtIdDisciplina, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
         lbAviso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${controladorCurso.curso.idCurso}"), txtIdCurso, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -170,14 +187,6 @@ public class Disciplinas extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnLimpar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCadastrar)
-                        .addGap(51, 51, 51))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -189,7 +198,17 @@ public class Disciplinas extends javax.swing.JFrame {
                             .addComponent(txtNome)
                             .addComponent(cbSemestre, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtCurso))
-                        .addGap(61, 61, 61))))
+                        .addGap(61, 61, 61))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnLimpar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCadastrar)
+                        .addGap(51, 51, 51))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtIdDisciplina, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtIdCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(124, 124, 124))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,8 +234,10 @@ public class Disciplinas extends javax.swing.JFrame {
                     .addComponent(btnLimpar)
                     .addComponent(btnCadastrar))
                 .addGap(75, 75, 75)
-                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtIdDisciplina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(93, 93, 93))
         );
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 48)); // NOI18N
@@ -343,6 +364,11 @@ public class Disciplinas extends javax.swing.JFrame {
             }
         });
         tbCurso.getTableHeader().setReorderingAllowed(false);
+        tbCurso.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbCursoMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tbCurso);
         if (tbCurso.getColumnModel().getColumnCount() > 0) {
             tbCurso.getColumnModel().getColumn(0).setMinWidth(100);
@@ -522,7 +548,7 @@ public class Disciplinas extends javax.swing.JFrame {
 
     private void tbDisciplinaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDisciplinaMouseClicked
         //Atribuindo os valores da tabela aos campos
-        txtId.setText(tbDisciplina.getValueAt(tbDisciplina.getSelectedRow(), 0).toString());
+        txtIdDisciplina.setText(tbDisciplina.getValueAt(tbDisciplina.getSelectedRow(), 0).toString());
         txtNome.setText(tbDisciplina.getValueAt(tbDisciplina.getSelectedRow(), 1).toString());
         cbSemestre.setSelectedItem(tbDisciplina.getValueAt(tbDisciplina.getSelectedRow(), 2).toString());
     }//GEN-LAST:event_tbDisciplinaMouseClicked
@@ -560,7 +586,7 @@ public class Disciplinas extends javax.swing.JFrame {
     private void lblPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPesquisarMouseClicked
         if (txtFiltro.getText().trim().equals("")) {
             controlador.atualizarTabela(tbDisciplina);
-        }else{
+        } else {
             controlador.atualizarTabela(tbDisciplina, txtFiltro.getText());
 
         }
@@ -570,6 +596,11 @@ public class Disciplinas extends javax.swing.JFrame {
         txtNome.setText("");
         txtCurso.setText("");
     }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void tbCursoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCursoMouseClicked
+        txtCurso.setText(tbCurso.getValueAt(tbCurso.getSelectedRow(), 1).toString());
+        txtIdCurso.setText(tbCurso.getValueAt(tbCurso.getSelectedRow(), 0).toString());
+    }//GEN-LAST:event_tbCursoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -640,7 +671,8 @@ public class Disciplinas extends javax.swing.JFrame {
     private javax.swing.JTextField txtCurso;
     private javax.swing.JTextField txtFiltro;
     private javax.swing.JTextField txtFiltro1;
-    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtIdCurso;
+    private javax.swing.JTextField txtIdDisciplina;
     private javax.swing.JTextField txtNome;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables

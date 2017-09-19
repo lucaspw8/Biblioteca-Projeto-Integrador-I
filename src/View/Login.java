@@ -4,14 +4,18 @@
  * and open the template in the editor.
  */
 package View;
+
 import Controller.UsuarioControlador;
 import Model.Usuario;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Lucas
  */
 public class Login extends javax.swing.JFrame {
+
     private UsuarioControlador controlador;
 
     public UsuarioControlador getControlador() {
@@ -21,8 +25,7 @@ public class Login extends javax.swing.JFrame {
     public void setControlador(UsuarioControlador controlador) {
         this.controlador = controlador;
     }
-    
-    
+
     /**
      * Creates new form Login
      */
@@ -74,6 +77,12 @@ public class Login extends javax.swing.JFrame {
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${controlador.usuario.senha}"), passwdSenha, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
+
+        passwdSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwdSenhaKeyPressed(evt);
+            }
+        });
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/usuario1.png"))); // NOI18N
 
@@ -158,22 +167,41 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
-        Usuario usuario = new Usuario();
+        Usuario usuario;
         usuario = controlador.Login();
-        
-        if(controlador.Login()!=null){
-            
-            Home home =new Home(usuario);
+
+        if (controlador.Login() != null) {
+
+            Home home = new Home(usuario);
             home.setVisible(true);
             dispose();
-            
+
         } else {
             JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos!");
             txtlogin.setText("");
             passwdSenha.setText("");
         }
-        
+
     }//GEN-LAST:event_btnloginActionPerformed
+
+    private void passwdSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwdSenhaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Usuario usuario;
+            usuario = controlador.Login();
+
+            if (controlador.Login() != null) {
+
+                Home home = new Home(usuario);
+                home.setVisible(true);
+                dispose();
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos!");
+                txtlogin.setText("");
+                passwdSenha.setText("");
+            }
+        }
+    }//GEN-LAST:event_passwdSenhaKeyPressed
 
     /**
      * @param args the command line arguments

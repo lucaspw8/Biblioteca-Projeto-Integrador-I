@@ -5,6 +5,9 @@
  */
 package View;
 
+import Controller.CursoControlador;
+import Controller.DisciplinaControlador;
+import Controller.LivroControlador;
 import Model.Usuario;
 
 /**
@@ -12,14 +15,52 @@ import Model.Usuario;
  * @author Lucas
  */
 public class Bibliografia extends javax.swing.JFrame {
+
     Usuario usuario;
+    private CursoControlador controladorCurso;
+    private DisciplinaControlador controladorDisciplina;
+    private LivroControlador controladorLivro;
+
+    public LivroControlador getControladorLivro() {
+        return controladorLivro;
+    }
+
+    public void setControladorLivro(LivroControlador controladorLivro) {
+        this.controladorLivro = controladorLivro;
+    }
+
+    public DisciplinaControlador getControladorDisciplina() {
+        return controladorDisciplina;
+    }
+
+    public void setControladorDisciplina(DisciplinaControlador controladorDisciplina) {
+        this.controladorDisciplina = controladorDisciplina;
+    }
+
+    public CursoControlador getControladorCurso() {
+        return controladorCurso;
+    }
+
+    public void setControladorCurso(CursoControlador controladorCurso) {
+        this.controladorCurso = controladorCurso;
+    }
+
     /**
      * Creates new form Bibliografia
      */
     public Bibliografia(Usuario usuario) {
         initComponents();
+        controladorCurso = new CursoControlador();
+        controladorCurso.atualizarTabela(tbCurso);
+        controladorDisciplina = new DisciplinaControlador();
+        controladorDisciplina.atualizarTabela(tbDisciplina);
+        controladorLivro = new LivroControlador();
+        controladorLivro.atualizarTabela(tb_livro);
+        txtIdCurso.setVisible(false);
+        txtIdDisciplina.setVisible(false);
+        txtIdLivro.setVisible(false);
         this.usuario = usuario;
-        if ("Funcionario".equals(usuario.getCargo())){
+        if ("Funcionario".equals(usuario.getCargo())) {
             jm_Usuarios.setVisible(false);
             btnEditar.setVisible(false);
             btnCadastrar.setVisible(false);
@@ -35,6 +76,7 @@ public class Bibliografia extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -44,14 +86,19 @@ public class Bibliografia extends javax.swing.JFrame {
         btnCadastrar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
+        txtLivro = new javax.swing.JTextField();
+        txtIdCurso = new javax.swing.JTextField();
         txtCurso = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        txtIdLivro = new javax.swing.JTextField();
+        txtIdDisciplina = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         tbpnBibliografia = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         txtFiltro1 = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tbCurso = new javax.swing.JTable();
+        tbBibliografia = new javax.swing.JTable();
         btnExcluir = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
@@ -67,6 +114,12 @@ public class Bibliografia extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tb_livro = new javax.swing.JTable();
         jLabel14 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        txtFiltro3 = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tbCurso = new javax.swing.JTable();
+        jLabel16 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jm_Inicio = new javax.swing.JMenu();
         jm_Usuarios = new javax.swing.JMenu();
@@ -108,35 +161,55 @@ public class Bibliografia extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel9.setText("Cadastro");
 
+        txtLivro.setEditable(false);
+        txtLivro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtLivro.setText("Selecione o livro na tabela ao lado");
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${controladorCurso.curso.idCurso}"), txtIdCurso, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         txtCurso.setEditable(false);
         txtCurso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtCurso.setText("Selecione o livro na tabela ao lado");
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel17.setText("Curso:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel6))
-                        .addGap(7, 7, 7)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtDisciplina, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCurso, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(61, 61, 61))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnLimpar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCadastrar)
-                        .addGap(51, 51, 51))))
-            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(145, 145, 145)
                 .addComponent(jLabel9)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtIdDisciplina, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnLimpar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCadastrar)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtIdCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtIdLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(51, 51, 51))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel17))
+                        .addGap(7, 7, 7)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtDisciplina, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtLivro, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCurso))
+                        .addGap(61, 61, 61))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,12 +222,22 @@ public class Bibliografia extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
+                    .addComponent(txtLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
                     .addComponent(txtCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(145, 145, 145)
+                .addGap(111, 111, 111)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLimpar)
                     .addComponent(btnCadastrar))
-                .addGap(188, 188, 188))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtIdCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtIdDisciplina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(98, 98, 98))
         );
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 48)); // NOI18N
@@ -166,8 +249,8 @@ public class Bibliografia extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText("Filtrar por Nome:");
 
-        tbCurso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        tbCurso.setModel(new javax.swing.table.DefaultTableModel(
+        tbBibliografia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tbBibliografia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -183,12 +266,12 @@ public class Bibliografia extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tbCurso.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(tbCurso);
-        if (tbCurso.getColumnModel().getColumnCount() > 0) {
-            tbCurso.getColumnModel().getColumn(1).setMinWidth(100);
-            tbCurso.getColumnModel().getColumn(1).setPreferredWidth(100);
-            tbCurso.getColumnModel().getColumn(1).setMaxWidth(100);
+        tbBibliografia.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tbBibliografia);
+        if (tbBibliografia.getColumnModel().getColumnCount() > 0) {
+            tbBibliografia.getColumnModel().getColumn(1).setMinWidth(100);
+            tbBibliografia.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tbBibliografia.getColumnModel().getColumn(1).setMaxWidth(100);
         }
 
         btnExcluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -262,6 +345,11 @@ public class Bibliografia extends javax.swing.JFrame {
             }
         });
         tbDisciplina.getTableHeader().setReorderingAllowed(false);
+        tbDisciplina.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbDisciplinaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbDisciplina);
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pesquisa.png"))); // NOI18N
@@ -306,11 +394,11 @@ public class Bibliografia extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Titulo", "Autor", "Edição", "Editora", "Disponibilidade", "Quantidade"
+                "Id", "Titulo", "Autor", "Edição", "Editora", "Ano", "Disponibilidade", "Quantidade"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, true, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -318,6 +406,11 @@ public class Bibliografia extends javax.swing.JFrame {
             }
         });
         tb_livro.getTableHeader().setReorderingAllowed(false);
+        tb_livro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tb_livroMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tb_livro);
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pesquisa.png"))); // NOI18N
@@ -353,6 +446,68 @@ public class Bibliografia extends javax.swing.JFrame {
         );
 
         tbpnBibliografia.addTab("Livros", jPanel4);
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel15.setText("Filtrar por Nome:");
+
+        tbCurso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tbCurso.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id", "Nome", "Coordenador"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbCurso.getTableHeader().setReorderingAllowed(false);
+        tbCurso.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbCursoMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tbCurso);
+
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pesquisa.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel15)
+                .addGap(18, 18, 18)
+                .addComponent(txtFiltro3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel16)
+                .addGap(52, 52, 52))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(txtFiltro3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
+                .addGap(44, 44, 44))
+        );
+
+        tbpnBibliografia.addTab("Cursos", jPanel6);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -433,6 +588,8 @@ public class Bibliografia extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        bindingGroup.bind();
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -472,9 +629,24 @@ public class Bibliografia extends javax.swing.JFrame {
     }//GEN-LAST:event_jm_LivrosMouseClicked
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        txtCurso.setText("");
+        txtLivro.setText("");
         txtDisciplina.setText("");
     }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void tbCursoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCursoMouseClicked
+        txtCurso.setText(tbCurso.getValueAt(tbCurso.getSelectedRow(), 1).toString());
+        txtIdCurso.setText(tbCurso.getValueAt(tbCurso.getSelectedRow(), 0).toString());
+    }//GEN-LAST:event_tbCursoMouseClicked
+
+    private void tb_livroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_livroMouseClicked
+        txtLivro.setText(tb_livro.getValueAt(tb_livro.getSelectedRow(), 1).toString());
+        txtIdLivro.setText(tb_livro.getValueAt(tb_livro.getSelectedRow(), 0).toString());
+    }//GEN-LAST:event_tb_livroMouseClicked
+
+    private void tbDisciplinaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDisciplinaMouseClicked
+        txtDisciplina.setText(tbDisciplina.getValueAt(tbDisciplina.getSelectedRow(), 1).toString());
+        txtIdDisciplina.setText(tbDisciplina.getValueAt(tbDisciplina.getSelectedRow(), 0).toString());
+    }//GEN-LAST:event_tbDisciplinaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -522,6 +694,9 @@ public class Bibliografia extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -532,14 +707,17 @@ public class Bibliografia extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JMenu jm_Cursos;
     private javax.swing.JMenu jm_Disciplinas;
     private javax.swing.JMenu jm_Inicio;
     private javax.swing.JMenu jm_Livros;
     private javax.swing.JMenu jm_Usuarios;
+    private javax.swing.JTable tbBibliografia;
     private javax.swing.JTable tbCurso;
     private javax.swing.JTable tbDisciplina;
     private javax.swing.JTable tb_livro;
@@ -549,5 +727,11 @@ public class Bibliografia extends javax.swing.JFrame {
     private javax.swing.JTextField txtFiltro;
     private javax.swing.JTextField txtFiltro1;
     private javax.swing.JTextField txtFiltro2;
+    private javax.swing.JTextField txtFiltro3;
+    private javax.swing.JTextField txtIdCurso;
+    private javax.swing.JTextField txtIdDisciplina;
+    private javax.swing.JTextField txtIdLivro;
+    private javax.swing.JTextField txtLivro;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
