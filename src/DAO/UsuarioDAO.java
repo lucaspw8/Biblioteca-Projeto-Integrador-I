@@ -13,26 +13,28 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import util.HibernateUtil;
+
 /**
  *
  * @author Lucas
  */
 public class UsuarioDAO {
-    
-     private Session sessao;
-     private Transaction transacao;
-    
-     /**
+
+    private Session sessao;
+    private Transaction transacao;
+
+    /**
      * Abre a coneção e inicia a transação
      */
-    private void OpenConnection(){
+    private void OpenConnection() {
         sessao = HibernateUtil.getSessionFactory().openSession();
         transacao = sessao.beginTransaction();
     }
-   /**
+
+    /**
      * Realiza o commit e depois encerra a sessao
      */
-    private void CloseConnection(){
+    private void CloseConnection() {
         transacao.commit();
         sessao.close();
     }
@@ -52,53 +54,95 @@ public class UsuarioDAO {
     public void setTransacao(Transaction transacao) {
         this.transacao = transacao;
     }
- 
-    public void cadastrar(Usuario usuario){
+
+    public void cadastrar(Usuario usuario) {
         try {
-         OpenConnection();
-        //Pedindo para salvar Disicplina
-        sessao.save(usuario);
-        CloseConnection();
+            OpenConnection();
+            //Pedindo para salvar Disicplina
+            sessao.save(usuario);
+            CloseConnection();
         } catch (HibernateException e) {
             throw new RuntimeException(e);
         }
-        
+
     }
-    
+
     /**
      * Edita um Usuario passado como parametro
-     * @param usuario 
+     *
+     * @param usuario
      * @exception HibernateException
      */
-    public void atualizar(Usuario usuario){
+    public void atualizar(Usuario usuario) {
         try {
             OpenConnection();
             sessao.update(usuario);
-           CloseConnection();
+            CloseConnection();
         } catch (HibernateException e) {
             throw new RuntimeException(e);
         }
-        
+
     }
+
     /**
      * Remove um usuario
-     * @param usuario 
+     *
+     * @param usuario
      * @exception HibernateException
      */
-    public void Remover (Usuario usuario){
+    public void Remover(Usuario usuario) {
         try {
             OpenConnection();
             sessao.delete(usuario);
-           CloseConnection();
+            CloseConnection();
         } catch (HibernateException e) {
             throw new RuntimeException(e);
         }
-       
+
+    }
+
+    /**
+     * Busca todos os usuarios cadastrados no sistema
+     *
+     * @param usuario
+     * @return List(Usuario)
+     * @exception HibernateException
+     */
+    public List<Usuario> ListarUsuario(Usuario usuario) {
+        try {
+            OpenConnection();
+            List lista = sessao.createCriteria(Usuario.class).list();
+            return lista;
+        } catch (HibernateException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    /**
+     * Busca um registro que contenha o login e senha informados pelo usuario
+     * @param usuario
+     * @return List(Usuario)
+     * @exception HibernateException
+     */
+    public List<Usuario> LoginUsu(Usuario usuario) {
+        try {
+            OpenConnection();
+            
+            List lista = sessao.createCriteria(Usuario.class).add(Restrictions.like("login",usuario.getLogin()))
+                    .add(Restrictions.like("senha",usuario.getSenha())).list();
+            return lista;
+        } catch (HibernateException e) {
+            throw new RuntimeException(e);
+        }
     }
     
-    public List<Usuario> ListarDisciplina(Usuario usuario){
-       OpenConnection();
-       List lista = sessao.createCriteria(Usuario.class).list();
-       return lista;
-    }
+    public List<Usuario> Pesquisar(String texto){
+          OpenConnection();
+          //Ilike não diferencia maiusculo de minusculo
+          List lista =sessao.createCriteria(Usuario.class).add(Restrictions.ilike("nome",texto+"%")).list();
+          CloseConnection();
+          return lista;
+      }
+    
+    
 }

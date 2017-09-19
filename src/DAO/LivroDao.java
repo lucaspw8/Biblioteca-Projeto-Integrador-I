@@ -93,6 +93,7 @@ public class LivroDao {
        */
       public List<Livro> Pesquisar(String texto){
           OpenConnection();
+          //Ilike não diferencia maiusculo de minusculo
           List lista =sessao.createCriteria(Livro.class).add(Restrictions.ilike("titulo",texto+"%")).list();
           CloseConnection();
           return lista;

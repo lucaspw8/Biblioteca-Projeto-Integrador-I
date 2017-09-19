@@ -48,7 +48,6 @@ Contributor(s):
     <property name="hibernate.hbm2ddl.auto">update</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.format_sql">true</property>
-    <property name="hibernate.connection.password">123</property>
     <mapping class="Model.Curso"/>
     <mapping class="Model.Disciplina"/>
     <mapping class="Model.Livro"/>

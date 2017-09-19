@@ -5,6 +5,8 @@
  */
 package View;
 import Controller.UsuarioControlador;
+import Model.Usuario;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Lucas
@@ -79,6 +81,11 @@ public class Login extends javax.swing.JFrame {
 
         btnlogin.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnlogin.setText("Entrar");
+        btnlogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnloginActionPerformed(evt);
+            }
+        });
 
         lblAvisoLogin.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblAvisoLogin.setForeground(new java.awt.Color(255, 0, 0));
@@ -147,7 +154,26 @@ public class Login extends javax.swing.JFrame {
         bindingGroup.bind();
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
+        Usuario usuario = new Usuario();
+        usuario = controlador.Login();
+        
+        if(controlador.Login()!=null){
+            
+            Home home =new Home(usuario);
+            home.setVisible(true);
+            dispose();
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos!");
+            txtlogin.setText("");
+            passwdSenha.setText("");
+        }
+        
+    }//GEN-LAST:event_btnloginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -197,4 +223,5 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField txtlogin;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
+
 }

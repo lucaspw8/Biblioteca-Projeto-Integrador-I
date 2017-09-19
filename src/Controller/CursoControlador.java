@@ -74,10 +74,39 @@ public class CursoControlador {
        cursos = dao.ListarCurso(curso);
     }
     
+     public void PesquisarCurso(String texto){
+      CursoDAO dao = new CursoDAO();
+      cursos = dao.Pesquisar(texto);
+    }
+    
     public void atualizarTabela(JTable tabela) {
         
         
            ListaCurso();
+
+            List<Curso> cursosEncontrados = getCursos();
+
+            DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+            
+            modelo.setNumRows(0);
+
+            for (int x = 0; x < cursosEncontrados.size(); x++) {
+                modelo.insertRow(
+                        x,new String[]{
+                            String.valueOf(cursosEncontrados.get(x).getIdCurso()),
+                            cursosEncontrados.get(x).getNome(),
+                            cursosEncontrados.get(x).getCoordenador()
+                        });
+            }
+
+            tabela.setModel(modelo);
+        
+    }
+    
+    public void atualizarTabela(JTable tabela, String pesquisa) {
+        
+        
+            PesquisarCurso(pesquisa);
 
             List<Curso> cursosEncontrados = getCursos();
 

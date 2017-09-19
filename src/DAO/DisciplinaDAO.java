@@ -83,6 +83,14 @@ public class DisciplinaDAO {
         
         return sessao.createCriteria(Disciplina.class).list();
     }
+      
+      public List<Disciplina> Pesquisar(String texto){
+          OpenConnection();
+          //Ilike não diferencia maiusculo de minusculo
+          List lista =sessao.createCriteria(Disciplina.class).add(Restrictions.ilike("nome",texto+"%")).list();
+          CloseConnection();
+          return lista;
+      }
     
     public void Remover (Disciplina disciplina){
        OpenConnection();

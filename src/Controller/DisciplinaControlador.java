@@ -60,10 +60,38 @@ public class DisciplinaControlador {
       disciplinas = dao.ListarDisciplina(disciplina);
     }
      
+     public void PesquisarDisciplina(String texto){
+      DisciplinaDAO dao = new DisciplinaDAO();
+      disciplinas= dao.Pesquisar(texto);
+    }
+     
      public void atualizarTabela(JTable tabela) {
         
         
             listaDisciplina();
+
+            List<Disciplina> DisciplinasEncontrados = getDisciplinas();
+
+            DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+            
+            modelo.setNumRows(0);
+
+            for (int x = 0; x < DisciplinasEncontrados.size(); x++) {
+                modelo.insertRow(x,new String[]{
+                            String.valueOf(DisciplinasEncontrados.get(x).getIdDisciplina()),
+                            DisciplinasEncontrados.get(x).getNome(),
+                            DisciplinasEncontrados.get(x).getSemestre()
+                            
+                         });
+            }
+
+            tabela.setModel(modelo);
+        }
+     
+     public void atualizarTabela(JTable tabela, String pesquisa) {
+        
+        
+            PesquisarDisciplina(pesquisa);
 
             List<Disciplina> DisciplinasEncontrados = getDisciplinas();
 

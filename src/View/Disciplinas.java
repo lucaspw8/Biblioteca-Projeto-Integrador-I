@@ -6,6 +6,7 @@
 package View;
 
 import Controller.DisciplinaControlador;
+import Model.Usuario;
 import java.awt.Color;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -18,7 +19,8 @@ import javax.swing.JOptionPane;
 public class Disciplinas extends javax.swing.JFrame {
 
     private DisciplinaControlador controlador;
-
+    Usuario usuario;
+    
     public DisciplinaControlador getControlador() {
         return controlador;
     }
@@ -27,12 +29,19 @@ public class Disciplinas extends javax.swing.JFrame {
         this.controlador = controlador;
     }
 
-    public Disciplinas() {
+    public Disciplinas(Usuario usuario) {
         controlador = new DisciplinaControlador();
         initComponents();
         controlador.atualizarTabela(tbDisciplina);
         txtId.setVisible(false);
         cbSemestre.setSelectedItem("1º");
+        this.usuario = usuario;
+        if ("Funcionario".equals(usuario.getCargo())){
+            jm_Usuarios.setVisible(false);
+            btnEditar.setVisible(false);
+            btnCadastrar.setVisible(false);
+            btnExcluir.setVisible(false);
+        }
     }
 
     public void LimparAviso() {
@@ -68,7 +77,7 @@ public class Disciplinas extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         btnCadastrar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
+        btnLimpar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         cbSemestre = new javax.swing.JComboBox<>();
         txtCurso = new javax.swing.JTextField();
@@ -83,7 +92,7 @@ public class Disciplinas extends javax.swing.JFrame {
         tbDisciplina = new javax.swing.JTable();
         btnExcluir = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
+        lblPesquisar = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         txtFiltro1 = new javax.swing.JTextField();
@@ -94,8 +103,8 @@ public class Disciplinas extends javax.swing.JFrame {
         jm_Inicio = new javax.swing.JMenu();
         jm_Usuarios = new javax.swing.JMenu();
         jm_Cursos = new javax.swing.JMenu();
-        jm_Disciplinas = new javax.swing.JMenu();
         jm_Bibliografia = new javax.swing.JMenu();
+        jm_Livros = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -124,8 +133,13 @@ public class Disciplinas extends javax.swing.JFrame {
             }
         });
 
-        btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnCancelar.setText("Cancelar");
+        btnLimpar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel9.setText("Cadastro");
@@ -157,8 +171,8 @@ public class Disciplinas extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
+                        .addComponent(btnLimpar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCadastrar)
                         .addGap(51, 51, 51))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -198,7 +212,7 @@ public class Disciplinas extends javax.swing.JFrame {
                 .addComponent(lbAviso, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancelar)
+                    .addComponent(btnLimpar)
                     .addComponent(btnCadastrar))
                 .addGap(75, 75, 75)
                 .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -258,23 +272,21 @@ public class Disciplinas extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pesquisa.png"))); // NOI18N
+        lblPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pesquisa.png"))); // NOI18N
+        lblPesquisar.setText("Pesquisar");
+        lblPesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPesquisarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addGap(18, 18, 18)
-                .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
-                .addGap(52, 52, 52))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(127, 127, 127)
@@ -282,6 +294,14 @@ public class Disciplinas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnEditar)
                 .addGap(135, 135, 135))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblPesquisar)
+                .addGap(28, 28, 28))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,7 +310,7 @@ public class Disciplinas extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
+                    .addComponent(lblPesquisar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -345,7 +365,7 @@ public class Disciplinas extends javax.swing.JFrame {
                 .addGap(52, 52, 52))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -392,19 +412,44 @@ public class Disciplinas extends javax.swing.JFrame {
         jTabbedPane1.getAccessibleContext().setAccessibleName("Disciplinas");
 
         jm_Inicio.setText("Inico");
+        jm_Inicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jm_InicioMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jm_Inicio);
 
         jm_Usuarios.setText("Usuarios");
+        jm_Usuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jm_UsuariosMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jm_Usuarios);
 
         jm_Cursos.setText("Cursos");
+        jm_Cursos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jm_CursosMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jm_Cursos);
 
-        jm_Disciplinas.setText("Disciplinas");
-        jMenuBar1.add(jm_Disciplinas);
-
         jm_Bibliografia.setText("Bibliografia");
+        jm_Bibliografia.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jm_BibliografiaMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jm_Bibliografia);
+
+        jm_Livros.setText("Livros");
+        jm_Livros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jm_LivrosMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jm_Livros);
 
         setJMenuBar(jMenuBar1);
 
@@ -422,6 +467,7 @@ public class Disciplinas extends javax.swing.JFrame {
         bindingGroup.bind();
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
@@ -448,7 +494,7 @@ public class Disciplinas extends javax.swing.JFrame {
             LimparAviso();
         } catch (Exception e) {
             lbAviso.setForeground(Color.RED);
-            lbAviso.setText("Erro ao editar ! "+e.getMessage());
+            lbAviso.setText("Erro ao editar ! " + e.getMessage());
             LimparAviso();
         }
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -481,49 +527,92 @@ public class Disciplinas extends javax.swing.JFrame {
         cbSemestre.setSelectedItem(tbDisciplina.getValueAt(tbDisciplina.getSelectedRow(), 2).toString());
     }//GEN-LAST:event_tbDisciplinaMouseClicked
 
+    private void jm_UsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jm_UsuariosMouseClicked
+        Usuarios usuarios = new Usuarios(usuario);
+        usuarios.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jm_UsuariosMouseClicked
+
+    private void jm_InicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jm_InicioMouseClicked
+        Home home = new Home(usuario);
+        home.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jm_InicioMouseClicked
+
+    private void jm_CursosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jm_CursosMouseClicked
+        Curso curso = new Curso(usuario);
+        curso.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jm_CursosMouseClicked
+
+    private void jm_BibliografiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jm_BibliografiaMouseClicked
+        Bibliografia bibliografia = new Bibliografia(usuario);
+        bibliografia.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jm_BibliografiaMouseClicked
+
+    private void jm_LivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jm_LivrosMouseClicked
+        Livros livros = new Livros(usuario);
+        livros.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jm_LivrosMouseClicked
+
+    private void lblPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPesquisarMouseClicked
+        if (txtFiltro.getText().trim().equals("")) {
+            controlador.atualizarTabela(tbDisciplina);
+        }else{
+            controlador.atualizarTabela(tbDisciplina, txtFiltro.getText());
+
+        }
+    }//GEN-LAST:event_lblPesquisarMouseClicked
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        txtNome.setText("");
+        txtCurso.setText("");
+    }//GEN-LAST:event_btnLimparActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Disciplinas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Disciplinas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Disciplinas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Disciplinas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Disciplinas().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Disciplinas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Disciplinas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Disciplinas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Disciplinas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Disciplinas().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
-    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnLimpar;
     private javax.swing.JComboBox<String> cbSemestre;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
@@ -541,10 +630,11 @@ public class Disciplinas extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JMenu jm_Bibliografia;
     private javax.swing.JMenu jm_Cursos;
-    private javax.swing.JMenu jm_Disciplinas;
     private javax.swing.JMenu jm_Inicio;
+    private javax.swing.JMenu jm_Livros;
     private javax.swing.JMenu jm_Usuarios;
     private javax.swing.JLabel lbAviso;
+    private javax.swing.JLabel lblPesquisar;
     private javax.swing.JTable tbCurso;
     private javax.swing.JTable tbDisciplina;
     private javax.swing.JTextField txtCurso;
