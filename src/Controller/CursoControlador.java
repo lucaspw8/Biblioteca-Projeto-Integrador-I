@@ -8,7 +8,6 @@ package Controller;
 import DAO.CursoDAO;
 import Model.Curso;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;

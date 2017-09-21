@@ -9,9 +9,7 @@ package Controller;
 import Model.Livro;
 import DAO.LivroDao;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.HibernateException;
 /**
@@ -129,6 +127,13 @@ public class LivroControlador {
      public void ExcluirLivro(){
         LivroDao dao = new LivroDao();
         dao.Excluir(livro);
+    }
+     
+     public boolean verificar(){
+        
+       return livro.getAutor() == null || livro.getAno() == null || livro.getTitulo() == null
+               || livro.getEditora() == null || livro.getEdicao() == null;
+    
     }
    
 }

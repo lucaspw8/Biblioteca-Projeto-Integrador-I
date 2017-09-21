@@ -117,4 +117,10 @@ public class DisciplinaControlador {
         }
     }
     
+    public boolean verificar(){
+        
+       return disciplina.getNome() == null;
+    
+    }
+    
 }

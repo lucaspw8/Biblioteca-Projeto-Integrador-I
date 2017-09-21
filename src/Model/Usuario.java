@@ -23,7 +23,6 @@ public class Usuario implements Serializable{
     private int id;
     @Column(name = "login", unique = true, nullable = false, length = 30)
     private String login;
-   
     @Column(name = "senha", nullable = false, length = 30)
     private String senha;
     @Column(name = "nome", nullable = false, length = 50)

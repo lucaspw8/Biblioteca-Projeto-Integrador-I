@@ -6,17 +6,10 @@
 package Model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 
 /**
  *
@@ -35,20 +28,6 @@ public class Disciplina implements Serializable{
     @Column(name = "semestre", nullable = false, length = 2)
     private String semestre;
     //@ManyToMany(mappedBy = "disciplinas", cascade = CascadeType.ALL)
-    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinTable(name = "rel_disc_cursos",
-            joinColumns = {@JoinColumn(name = "idDisciplina")},
-            inverseJoinColumns ={@JoinColumn(name = "idCurso")})
-    List<Curso> cursos = new ArrayList<Curso>();
-
-    public List<Curso> getCursos() {
-        return cursos;
-    }
-    
-    public void setCursos(List<Curso> cursos) {
-        this.cursos = cursos;
-    }
-    
     
     public int getIdDisciplina() {
         return idDisciplina;

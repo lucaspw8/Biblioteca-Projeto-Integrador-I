@@ -8,7 +8,6 @@ package Controller;
 import DAO.UsuarioDAO;
 import Model.Usuario;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -154,4 +153,12 @@ public class UsuarioControlador {
 
         return null;
     }
+    
+    public boolean verificar(){
+        
+       return usuario.getLogin() == null || usuario.getNome() == null || usuario.getSenha() == null
+               || usuario.getEmail() == null;
+    
+    }
+    
 }
