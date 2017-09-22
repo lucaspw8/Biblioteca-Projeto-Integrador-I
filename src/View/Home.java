@@ -23,6 +23,8 @@ public class Home extends javax.swing.JFrame {
         if ("Funcionario".equals(usuario.getCargo())){
             jm_Usuarios.setVisible(false);
         }
+        
+        this.setExtendedState(MAXIMIZED_BOTH);
     }
 
     /**
@@ -179,6 +181,7 @@ public class Home extends javax.swing.JFrame {
 
     private void jm_BibliografiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jm_BibliografiaMouseClicked
         Bibliografia bibliografia = new Bibliografia(usuario);
+       
         bibliografia.setVisible(true);
         dispose();
     }//GEN-LAST:event_jm_BibliografiaMouseClicked

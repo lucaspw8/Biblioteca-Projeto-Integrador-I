@@ -46,6 +46,8 @@ public class Livros extends javax.swing.JFrame {
         if ("Funcionario".equals(usuario.getCargo())){
             jm_Usuarios.setVisible(false);
         }
+        
+        this.setExtendedState(MAXIMIZED_BOTH);
 
     }
 
@@ -358,6 +360,7 @@ public class Livros extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tb_livro.setRowHeight(20);
         tb_livro.getTableHeader().setReorderingAllowed(false);
         tb_livro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -372,8 +375,7 @@ public class Livros extends javax.swing.JFrame {
             tb_livro.getColumnModel().getColumn(1).setMinWidth(180);
             tb_livro.getColumnModel().getColumn(1).setMaxWidth(180);
             tb_livro.getColumnModel().getColumn(2).setResizable(false);
-            tb_livro.getColumnModel().getColumn(3).setResizable(false);
-            tb_livro.getColumnModel().getColumn(4).setResizable(false);
+            tb_livro.getColumnModel().getColumn(3).setMaxWidth(70);
             tb_livro.getColumnModel().getColumn(5).setMaxWidth(80);
             tb_livro.getColumnModel().getColumn(6).setResizable(false);
             tb_livro.getColumnModel().getColumn(7).setMinWidth(70);

@@ -32,6 +32,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         controlador = new UsuarioControlador();
         initComponents();
+        
     }
 
     /**

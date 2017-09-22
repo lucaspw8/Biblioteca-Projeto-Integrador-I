@@ -28,6 +28,8 @@ public class Usuarios extends javax.swing.JFrame {
         controlador.atualizarTabela(tbUsuarios);
         txtId.setVisible(false);
         this.usuario = usuario;
+        
+        this.setExtendedState(MAXIMIZED_BOTH);
     }
 
     public UsuarioControlador getControlador() {
@@ -283,6 +285,7 @@ public class Usuarios extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbUsuarios.setRowHeight(20);
         tbUsuarios.getTableHeader().setReorderingAllowed(false);
         tbUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

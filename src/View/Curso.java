@@ -8,6 +8,7 @@ package View;
 import Controller.CursoControlador;
 import Model.Usuario;
 import java.awt.Color;
+import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JOptionPane;
@@ -41,6 +42,7 @@ public class Curso extends javax.swing.JFrame {
             btnCadastrar.setVisible(false);
             btnExcluir.setVisible(false);
         }
+        this.setExtendedState(MAXIMIZED_BOTH);
     }
 
     /**
@@ -246,6 +248,7 @@ public class Curso extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbCurso.setRowHeight(20);
         tbCurso.getTableHeader().setReorderingAllowed(false);
         tbCurso.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

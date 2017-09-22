@@ -83,6 +83,8 @@ public class Bibliografia extends javax.swing.JFrame {
         }
 
         controlador.atualizarTabela(tbBibliografia);
+        
+        this.setExtendedState(MAXIMIZED_BOTH);
     }
 
     public void LimparAviso() {
@@ -301,6 +303,7 @@ public class Bibliografia extends javax.swing.JFrame {
         jLabel8.setText("Bibliografias");
 
         tbpnBibliografia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tbpnBibliografia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText("Filtrar por Nome:");
@@ -311,7 +314,7 @@ public class Bibliografia extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID Curso", "Curso", "ID Disciplina", "Disciplina", "ID Livro", "Livro"
+                "Cod Curso", "Curso", "Cod Disciplina", "Disciplina", "Cod Livro", "Livro"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -322,6 +325,7 @@ public class Bibliografia extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbBibliografia.setRowHeight(20);
         tbBibliografia.getTableHeader().setReorderingAllowed(false);
         tbBibliografia.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -329,6 +333,14 @@ public class Bibliografia extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(tbBibliografia);
+        if (tbBibliografia.getColumnModel().getColumnCount() > 0) {
+            tbBibliografia.getColumnModel().getColumn(0).setMinWidth(70);
+            tbBibliografia.getColumnModel().getColumn(0).setMaxWidth(70);
+            tbBibliografia.getColumnModel().getColumn(2).setMinWidth(80);
+            tbBibliografia.getColumnModel().getColumn(2).setMaxWidth(80);
+            tbBibliografia.getColumnModel().getColumn(4).setMinWidth(70);
+            tbBibliografia.getColumnModel().getColumn(4).setMaxWidth(70);
+        }
 
         btnExcluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnExcluir.setText("Excluir");
@@ -389,6 +401,7 @@ public class Bibliografia extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Filtrar por Nome:");
 
+        tbDisciplina.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tbDisciplina.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -405,6 +418,7 @@ public class Bibliografia extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbDisciplina.setRowHeight(20);
         tbDisciplina.getTableHeader().setReorderingAllowed(false);
         tbDisciplina.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -412,6 +426,10 @@ public class Bibliografia extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tbDisciplina);
+        if (tbDisciplina.getColumnModel().getColumnCount() > 0) {
+            tbDisciplina.getColumnModel().getColumn(0).setMinWidth(70);
+            tbDisciplina.getColumnModel().getColumn(0).setMaxWidth(70);
+        }
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pesquisa.png"))); // NOI18N
 
@@ -441,7 +459,7 @@ public class Bibliografia extends javax.swing.JFrame {
                     .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
                 .addGap(92, 92, 92))
         );
 
@@ -450,6 +468,7 @@ public class Bibliografia extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel13.setText("Filtrar por Titulo:");
 
+        tb_livro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tb_livro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -466,6 +485,7 @@ public class Bibliografia extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tb_livro.setRowHeight(20);
         tb_livro.getTableHeader().setReorderingAllowed(false);
         tb_livro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -473,6 +493,10 @@ public class Bibliografia extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(tb_livro);
+        if (tb_livro.getColumnModel().getColumnCount() > 0) {
+            tb_livro.getColumnModel().getColumn(0).setMinWidth(70);
+            tb_livro.getColumnModel().getColumn(0).setMaxWidth(70);
+        }
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pesquisa.png"))); // NOI18N
 
@@ -502,7 +526,7 @@ public class Bibliografia extends javax.swing.JFrame {
                     .addComponent(txtFiltro2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
                 .addGap(70, 70, 70))
         );
 
@@ -528,6 +552,7 @@ public class Bibliografia extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbCurso.setRowHeight(20);
         tbCurso.getTableHeader().setReorderingAllowed(false);
         tbCurso.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -535,6 +560,10 @@ public class Bibliografia extends javax.swing.JFrame {
             }
         });
         jScrollPane4.setViewportView(tbCurso);
+        if (tbCurso.getColumnModel().getColumnCount() > 0) {
+            tbCurso.getColumnModel().getColumn(0).setMinWidth(70);
+            tbCurso.getColumnModel().getColumn(0).setMaxWidth(70);
+        }
 
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pesquisa.png"))); // NOI18N
 
@@ -564,7 +593,7 @@ public class Bibliografia extends javax.swing.JFrame {
                     .addComponent(txtFiltro3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
                 .addGap(44, 44, 44))
         );
 
