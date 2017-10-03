@@ -25,9 +25,7 @@ public class Disciplina implements Serializable{
     private int idDisciplina;
     @Column(name = "nome", nullable = false, length = 0)
     private String nome;
-    @Column(name = "semestre", nullable = false, length = 2)
-    private String semestre;
-    //@ManyToMany(mappedBy = "disciplinas", cascade = CascadeType.ALL)
+   
     
     public int getIdDisciplina() {
         return idDisciplina;
@@ -44,39 +42,4 @@ public class Disciplina implements Serializable{
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    public String getSemestre() {
-        return semestre;
-    }
-
-    public void setSemestre(String semestre) {
-        this.semestre = semestre;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 71 * hash + this.idDisciplina;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Disciplina other = (Disciplina) obj;
-        if (this.idDisciplina != other.idDisciplina) {
-            return false;
-        }
-        return true;
-    }
-    
-    
 }

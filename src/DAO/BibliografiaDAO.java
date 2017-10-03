@@ -70,7 +70,7 @@ public class BibliografiaDAO {
      * @param bibliografia
      * @exception SQLException
      */
-    public void Excluir(Bibliografia bibliografia) {
+    public void Excluir(Bibliografia bibliografia) throws SQLException{
 
         // 1º passo Criar a SQL
         String comando = "delete from rel_curso_disci where idCurso = ? and idDisciplina = ?";
@@ -98,8 +98,13 @@ public class BibliografiaDAO {
         }
 
     }
-
-    public List<Bibliografia> Listar() {
+    
+    /**
+     * 
+     * @return List
+     * @throws SQLException 
+     */
+    public List<Bibliografia> Listar() throws SQLException{
 
         try {
             List<Bibliografia> bibliografia = new ArrayList<>();
@@ -127,5 +132,37 @@ public class BibliografiaDAO {
         }
 
     }
+    
+    public List<Bibliografia> Pesquisar(String nome) throws SQLException{
+        try {
+            List<Bibliografia> bibliografia;
+            bibliografia = new ArrayList<>();
+            String sql = "SELECT c.idCurso AS curso_id, c.nome AS Curso,d.idDisciplina As disc_id,d.nome AS Disciplina,l.id AS livro_id,l.titulo AS Livro \n"
+                    + "from curso c, disciplina d, livro l, rel_curso_disci rcd, rel_livro_disci rld\n"
+                    + "where c.idCurso = rcd.idCurso and d.idDisciplina = rcd.idDisciplina and d.idDisciplina = rld.idDisciplina and l.id = rld.idLivro"
+                    + "and c.nome like %?%";
+            PreparedStatement stmt = conecta.prepareStatement(sql);
+            //3º Passo guardar o resultado dentro de um obj ResultSet
+            stmt.setString(1,nome);
+            ResultSet rs = stmt.executeQuery();
+            //4º Enqualto tiver resultado guardar no registro da lista
+            while (rs.next()) {
+                Bibliografia b = new Bibliografia();
+                b.setIdCurso(rs.getInt("curso_id"));
+                b.setCurso(rs.getString("Curso"));
+                b.setIdDisciplina(rs.getInt("disc_id"));
+                b.setDisciplina(rs.getString("Disciplina"));
+                b.setIdLivro(rs.getInt("livro_id"));
+                b.setLivro(rs.getString("Livro"));
+
+                bibliografia.add(b);
+            }
+           return bibliografia;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        
+        }
+    
 
 }

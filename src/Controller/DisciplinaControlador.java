@@ -80,7 +80,7 @@ public class DisciplinaControlador {
                 modelo.insertRow(x,new String[]{
                             String.valueOf(DisciplinasEncontrados.get(x).getIdDisciplina()),
                             DisciplinasEncontrados.get(x).getNome(),
-                            DisciplinasEncontrados.get(x).getSemestre()
+                            
                             
                          });
             }
@@ -102,8 +102,7 @@ public class DisciplinaControlador {
             for (int x = 0; x < DisciplinasEncontrados.size(); x++) {
                 modelo.insertRow(x,new String[]{
                             String.valueOf(DisciplinasEncontrados.get(x).getIdDisciplina()),
-                            DisciplinasEncontrados.get(x).getNome(),
-                            DisciplinasEncontrados.get(x).getSemestre()
+                            DisciplinasEncontrados.get(x).getNome()
                             
                          });
             }

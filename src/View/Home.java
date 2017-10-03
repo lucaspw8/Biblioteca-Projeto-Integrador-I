@@ -19,12 +19,12 @@ public class Home extends javax.swing.JFrame {
      */
     public Home(Usuario usuario) {
         initComponents();
+        lblInicio.setText("Bem vindo ao SGB, "+usuario.getNome()+"!");
         this.usuario = usuario;
         if ("Funcionario".equals(usuario.getCargo())){
             jm_Usuarios.setVisible(false);
+            lblUsuario.setVisible(false);
         }
-        
-        this.setExtendedState(MAXIMIZED_BOTH);
     }
 
     /**
@@ -37,8 +37,14 @@ public class Home extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
+        lblCurso = new javax.swing.JLabel();
+        lblDisciplinas = new javax.swing.JLabel();
+        lblBibliografia = new javax.swing.JLabel();
+        lblLivros = new javax.swing.JLabel();
+        lblInicio = new javax.swing.JLabel();
+        lblSair = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jm_Usuarios = new javax.swing.JMenu();
         jm_Cursos = new javax.swing.JMenu();
@@ -51,29 +57,106 @@ public class Home extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel2.setText("Acesso rápido");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/teste.png"))); // NOI18N
+
+        lblUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/usuario1.png"))); // NOI18N
+        lblUsuario.setText("Usuarios");
+        lblUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblUsuarioMouseClicked(evt);
+            }
+        });
+
+        lblCurso.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblCurso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cursos.png"))); // NOI18N
+        lblCurso.setText("Cursos");
+        lblCurso.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCursoMouseClicked(evt);
+            }
+        });
+
+        lblDisciplinas.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblDisciplinas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/disciplinas.png"))); // NOI18N
+        lblDisciplinas.setText("Disciplinas");
+        lblDisciplinas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDisciplinasMouseClicked(evt);
+            }
+        });
+
+        lblBibliografia.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblBibliografia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bibliografia.jpg"))); // NOI18N
+        lblBibliografia.setText("Bibliografia");
+        lblBibliografia.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBibliografiaMouseClicked(evt);
+            }
+        });
+
+        lblLivros.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblLivros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/livros.png"))); // NOI18N
+        lblLivros.setText("Livros");
+        lblLivros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLivrosMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(65, 65, 65)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblDisciplinas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblBibliografia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblLivros)
+                    .addComponent(lblCurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(60, 60, 60))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addContainerGap(302, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblDisciplinas, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblBibliografia, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblLivros, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Bem vindo ao SGB");
-        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblInicio.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lblInicio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblInicioMouseClicked(evt);
+            }
+        });
+
+        lblSair.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        lblSair.setText("Sair");
+        lblSair.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSairMouseClicked(evt);
+            }
+        });
 
         jMenuBar1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -134,19 +217,26 @@ public class Home extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblSair)
+                        .addGap(9, 9, 9))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblSair)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -181,7 +271,6 @@ public class Home extends javax.swing.JFrame {
 
     private void jm_BibliografiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jm_BibliografiaMouseClicked
         Bibliografia bibliografia = new Bibliografia(usuario);
-       
         bibliografia.setVisible(true);
         dispose();
     }//GEN-LAST:event_jm_BibliografiaMouseClicked
@@ -191,6 +280,46 @@ public class Home extends javax.swing.JFrame {
        livros.setVisible(true);
        dispose();
     }//GEN-LAST:event_jm_LivrosMouseClicked
+
+    private void lblSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSairMouseClicked
+        Login login = new Login();
+        login.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_lblSairMouseClicked
+
+    private void lblInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInicioMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblInicioMouseClicked
+
+    private void lblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseClicked
+        Usuarios usu = new Usuarios(usuario);
+        usu.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_lblUsuarioMouseClicked
+
+    private void lblCursoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCursoMouseClicked
+        Curso curso = new Curso(usuario);
+        curso.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_lblCursoMouseClicked
+
+    private void lblDisciplinasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDisciplinasMouseClicked
+        Disciplinas disciplina = new Disciplinas(usuario);
+        disciplina.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_lblDisciplinasMouseClicked
+
+    private void lblBibliografiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBibliografiaMouseClicked
+        Bibliografia bibliografia = new Bibliografia(usuario);
+        bibliografia.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_lblBibliografiaMouseClicked
+
+    private void lblLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLivrosMouseClicked
+        Livros livros = new Livros(usuario);
+        livros.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_lblLivrosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -229,7 +358,6 @@ public class Home extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu jm_Bibliografia;
@@ -237,5 +365,12 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenu jm_Disciplinas;
     private javax.swing.JMenu jm_Livros;
     private javax.swing.JMenu jm_Usuarios;
+    private javax.swing.JLabel lblBibliografia;
+    private javax.swing.JLabel lblCurso;
+    private javax.swing.JLabel lblDisciplinas;
+    private javax.swing.JLabel lblInicio;
+    private javax.swing.JLabel lblLivros;
+    private javax.swing.JLabel lblSair;
+    private javax.swing.JLabel lblUsuario;
     // End of variables declaration//GEN-END:variables
 }

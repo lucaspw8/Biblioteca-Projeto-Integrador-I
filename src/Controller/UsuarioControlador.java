@@ -156,8 +156,7 @@ public class UsuarioControlador {
     
     public boolean verificar(){
         
-       return usuario.getLogin() == null || usuario.getNome() == null || usuario.getSenha() == null
-               || usuario.getEmail() == null;
+       return usuario.getLogin() == null || usuario.getNome() == null || usuario.getSenha() == null;
     
     }
     
