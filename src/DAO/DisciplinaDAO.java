@@ -17,6 +17,7 @@ import org.hibernate.HibernateError;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import util.HibernateUtil;
 
@@ -90,7 +91,7 @@ public class DisciplinaDAO {
         OpenConnection();
         //like trabalha com case sensitive
 
-        return sessao.createCriteria(Disciplina.class).list();
+        return sessao.createCriteria(Disciplina.class).addOrder(Order.asc("nome")).list();
     }
 
     public List<Disciplina> RelCurso(int idCurso) {
@@ -98,7 +99,7 @@ public class DisciplinaDAO {
             List<Disciplina> disciplinas = new ArrayList<>();
             String sql = "select d.*  from disciplina d, curso c, rel_curso_disci rel\n"
                     + "WHERE rel.idDisciplina = d.idDisciplina and rel.idCurso =?\n"
-                    + "GROUP by d.idDisciplina ORDER by d.idDisciplina";
+                    + "GROUP by d.nome ORDER by d.nome";
             PreparedStatement stmt = conecta.prepareStatement(sql);
             //3º Passo guardar o resultado dentro de um obj ResultSet
             stmt.setInt(1, idCurso);
@@ -138,7 +139,7 @@ public class DisciplinaDAO {
             List<Disciplina> disciplinas = new ArrayList<>();
             String sql = "select d.*  from disciplina d, curso c, rel_curso_disci rel\n"
                     + "WHERE rel.idDisciplina = d.idDisciplina and rel.idCurso =? and d.nome like ?\n"
-                    + "GROUP by d.idDisciplina ORDER by d.idDisciplina";
+                    + "GROUP by d.nome ORDER by d.nome";
             PreparedStatement stmt = conecta.prepareStatement(sql);
             //3º Passo guardar o resultado dentro de um obj ResultSet
             stmt.setInt(1, idCurso);

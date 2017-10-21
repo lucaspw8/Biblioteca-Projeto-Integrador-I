@@ -11,6 +11,7 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -73,7 +74,7 @@ public class CursoDAO {
 
     public List<Curso> ListarCurso(Curso curso) {
         OpenConnection();
-        List lista = sessao.createCriteria(Curso.class).list();
+        List lista = sessao.createCriteria(Curso.class).addOrder(Order.asc("nome")).list();
         CloseConnection();
         return lista;
     }

@@ -11,6 +11,7 @@ import org.hibernate.HibernateError;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import util.HibernateUtil;
 
@@ -111,7 +112,7 @@ public class UsuarioDAO {
     public List<Usuario> ListarUsuario(Usuario usuario) {
         try {
             OpenConnection();
-            List lista = sessao.createCriteria(Usuario.class).list();
+            List lista = sessao.createCriteria(Usuario.class).addOrder(Order.asc("nome")).list();
             return lista;
         } catch (HibernateException e) {
             throw new RuntimeException(e.getMessage());

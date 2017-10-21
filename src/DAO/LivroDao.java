@@ -17,6 +17,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import util.HibernateUtil;
 import Conexao.Conectar;
+import org.hibernate.criterion.Order;
 
 
 /**
@@ -92,7 +93,7 @@ public class LivroDao {
        */
       public List<Livro> Listarlivro(Livro livro){
        OpenConnection();
-        List lista = sessao.createCriteria(Livro.class).list();
+        List lista = sessao.createCriteria(Livro.class).addOrder(Order.asc("titulo")).list();
         CloseConnection();
         return lista;
      }

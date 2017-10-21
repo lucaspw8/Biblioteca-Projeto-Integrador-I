@@ -72,7 +72,7 @@ public class BibliografiaDAO {
 
         try {
             List<Bibliografia> bibliografia = new ArrayList<>();
-            String sql = "SELECT * FROM bibliografia WHERE idCurso = ? ";
+            String sql = "SELECT * FROM bibliografia WHERE idCurso = ? order by disciplina";
             PreparedStatement stmt = conecta.prepareStatement(sql);
             stmt.setInt(1, id_curso);
             //3º Passo guardar o resultado dentro de um obj ResultSet
