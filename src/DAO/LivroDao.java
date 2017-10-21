@@ -154,7 +154,7 @@ public class LivroDao {
             
             stmt.setInt(1, idLivro);
             stmt.setInt(2, idDisciplina);
-            JOptionPane.showMessageDialog(null,comando);
+           
             //3º Executa comando 
             stmt.execute();
             //4º Fecha conexao

@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -91,21 +92,22 @@ public class BibliografiaDAO {
 
     }
     
-    public List<Bibliografia> Pesquisar(String nome) throws SQLException{
+    public List<Bibliografia> Pesquisar(int idCurso,String nome) throws SQLException{
         try {
             List<Bibliografia> bibliografia;
             bibliografia = new ArrayList<>();
-            String sql = "SELECT * FROM bibliografia WHERE like %?%";
+            String sql = "SELECT * FROM bibliografia b WHERE b.idCurso = ? and b.disciplina like ?";
             PreparedStatement stmt = conecta.prepareStatement(sql);
             //3º Passo guardar o resultado dentro de um obj ResultSet
-            stmt.setString(1,nome);
+            stmt.setInt(1,idCurso);
+            stmt.setString(2,"%"+nome+"%");
             ResultSet rs = stmt.executeQuery();
             //4º Enqualto tiver resultado guardar no registro da lista
             while (rs.next()) {
                 Bibliografia b = new Bibliografia();
-                b.setDisciplina(rs.getString(0));
-                b.setLivro(rs.getString(1));
-                b.setQtd(rs.getInt(2));
+                b.setDisciplina(rs.getString(1));
+                b.setLivro(rs.getString(2));
+                b.setQtd(rs.getInt(3));
                 bibliografia.add(b);
             }
            return bibliografia;

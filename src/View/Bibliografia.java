@@ -63,9 +63,9 @@ public class Bibliografia extends javax.swing.JFrame {
         this.usuario = usuario;
         if ("Funcionario".equals(usuario.getCargo())) {
             jm_Usuarios.setVisible(false);
-            btnEditar.setVisible(false);
+            //btnEditar.setVisible(false);
             btnCadastrar.setVisible(false);
-            btnExcluir.setVisible(false);
+            //btnExcluir.setVisible(false);
         }     
         this.setExtendedState(MAXIMIZED_BOTH);
     }
@@ -92,8 +92,6 @@ public class Bibliografia extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         txtIdLivro = new javax.swing.JTextField();
         lblAsterisco = new javax.swing.JLabel();
-        btnEditar = new javax.swing.JButton();
-        btnExcluir = new javax.swing.JButton();
         cbCurso = new javax.swing.JComboBox<>();
         cbDisciplina = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
@@ -103,6 +101,8 @@ public class Bibliografia extends javax.swing.JFrame {
         tbBibliografia = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
         cbBibliografiaCurso = new javax.swing.JComboBox<>();
+        txtFiltro = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         txtFiltro2 = new javax.swing.JTextField();
@@ -160,17 +160,6 @@ public class Bibliografia extends javax.swing.JFrame {
 
         lblAsterisco.setText("Os campos com (*) são obrigatórios");
 
-        btnEditar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnEditar.setText("Editar");
-
-        btnExcluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnExcluir.setText("Excluir");
-        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirActionPerformed(evt);
-            }
-        });
-
         cbCurso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         cbCurso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbCurso.setSelectedIndex(-1);
@@ -221,15 +210,10 @@ public class Bibliografia extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(lblAsterisco)
                                 .addGap(61, 61, 61))
+                            .addComponent(btnCadastrar)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(btnExcluir)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnEditar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnCadastrar))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtIdLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(100, 100, 100)))
+                                .addComponent(txtIdLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(100, 100, 100)))))
                 .addGap(35, 35, 35))
         );
         jPanel2Layout.setVerticalGroup(
@@ -253,11 +237,8 @@ public class Bibliografia extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblAsterisco)
-                .addGap(94, 94, 94)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCadastrar)
-                    .addComponent(btnEditar)
-                    .addComponent(btnExcluir))
+                .addGap(45, 45, 45)
+                .addComponent(btnCadastrar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtIdLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(147, 147, 147))
@@ -296,11 +277,10 @@ public class Bibliografia extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tbBibliografia);
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel15.setText("Curso:");
 
         cbBibliografiaCurso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        cbBibliografiaCurso.setSelectedIndex(-1);
         cbBibliografiaCurso.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
@@ -310,6 +290,15 @@ public class Bibliografia extends javax.swing.JFrame {
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
             }
         });
+
+        txtFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtFiltroKeyTyped(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setText("Filtrar por Disciplina:");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -321,6 +310,10 @@ public class Bibliografia extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cbBibliografiaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -332,7 +325,9 @@ public class Bibliografia extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(cbBibliografiaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbBibliografiaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                 .addGap(66, 66, 66))
@@ -512,7 +507,7 @@ public class Bibliografia extends javax.swing.JFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         
-      
+        if(tb_livro.getSelectedRowCount()!=0){
             try {
 
                 controladorLivro.LivroDisciplina(cbDisciplina,Integer.parseInt(tb_livro.getValueAt(tb_livro.getSelectedRow(), 0).toString()));
@@ -522,7 +517,9 @@ public class Bibliografia extends javax.swing.JFrame {
             } catch (HeadlessException | NumberFormatException e) {
                  JOptionPane.showMessageDialog(null,"Erro ao associar "+e.getMessage());
             }
-        
+        }else{
+            JOptionPane.showMessageDialog(null,"Selecione um livro antes");
+        }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void jm_InicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jm_InicioMouseClicked
@@ -565,16 +562,6 @@ public class Bibliografia extends javax.swing.JFrame {
         txtIdLivro.setText(tb_livro.getValueAt(tb_livro.getSelectedRow(), 0).toString());
     }//GEN-LAST:event_tb_livroMouseClicked
 
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        try {
-            controlador.Remover(cbCurso,cbDisciplina);
-            controlador.atualizarTabela(tbBibliografia, cbBibliografiaCurso);
-          
-        } catch (NumberFormatException e) {
-             JOptionPane.showMessageDialog(null, "Erro:" + e);
-        }
-    }//GEN-LAST:event_btnExcluirActionPerformed
-
     private void tbBibliografiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbBibliografiaMouseClicked
 
        txtIdLivro.setText(tbBibliografia.getValueAt(tbBibliografia.getSelectedRow(),4).toString());
@@ -597,6 +584,15 @@ public class Bibliografia extends javax.swing.JFrame {
     private void cbCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCursoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbCursoActionPerformed
+
+    private void txtFiltroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroKeyTyped
+        if (txtFiltro.getText().trim().equals("")) {
+            controlador.atualizarTabela(tbBibliografia,cbBibliografiaCurso);
+        } else {
+            controlador.atualizarTabela(tbBibliografia,cbBibliografiaCurso ,txtFiltro.getText());
+
+        }
+    }//GEN-LAST:event_txtFiltroKeyTyped
 
     /**
      * @param args the command line arguments
@@ -635,8 +631,6 @@ public class Bibliografia extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
-    private javax.swing.JButton btnEditar;
-    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JComboBox<String> cbBibliografiaCurso;
     private javax.swing.JComboBox<String> cbCurso;
@@ -647,6 +641,7 @@ public class Bibliografia extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
@@ -666,6 +661,7 @@ public class Bibliografia extends javax.swing.JFrame {
     private javax.swing.JTable tbBibliografia;
     private javax.swing.JTable tb_livro;
     private javax.swing.JTabbedPane tbpnBibliografia;
+    private javax.swing.JTextField txtFiltro;
     private javax.swing.JTextField txtFiltro2;
     private javax.swing.JTextField txtIdLivro;
     private javax.swing.JTextField txtLivro;

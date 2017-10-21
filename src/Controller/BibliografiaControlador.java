@@ -54,7 +54,21 @@ public class BibliografiaControlador {
         }
 
     }
+    
+    public void Listar(int id_curso,String pesquisa) {
+        try {
+            setBibliografias(bibliografiaDAO.Pesquisar(id_curso,pesquisa));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
+    }
+
+    /**
+     * Lista a bibliografia pelo curso
+     * @param tabela
+     * @param bibliografiaCurso 
+     */
     public void atualizarTabela(JTable tabela, JComboBox bibliografiaCurso) {
         
         try {
@@ -92,25 +106,45 @@ public class BibliografiaControlador {
         }
   
     }
-
-    public void atualizarTabela(JTable tabela, String nome) {
+  /**
+   * Filtra a bibliografia pelo noma da Disciplina
+   * @param tabela
+   * @param bibliografiaCurso
+   * @param pesquisa 
+   */
+   public void atualizarTabela(JTable tabela, JComboBox bibliografiaCurso,String pesquisa) {
         
         try {
-            bibliografias = bibliografiaDAO.Pesquisar(nome);
-            List<Bibliografia> bibliEncontradas = getBibliografias();
-            DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+            if (bibliografiaCurso.getItemCount() > 0) {
 
-            modelo.setNumRows(0);
+                if (bibliografiaCurso.getSelectedIndex() != -1) {
+                    this.cursoObj = (Curso) bibliografiaCurso.getSelectedItem();
+                     Listar(this.cursoObj.getIdCurso(),pesquisa);
+                    
+                    List<Bibliografia> bibliEncontradas = getBibliografias();
+                    DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 
-            for (int x = 0; x < bibliEncontradas.size(); x++) {
-                modelo.insertRow(
-                        x, new String[]{
-                            bibliEncontradas.get(x).getDisciplina(),
-                            bibliEncontradas.get(x).getLivro(),
-                            String.valueOf(bibliEncontradas.get(x).getQtd()),    
-                        });
+                    modelo.setNumRows(0);
+
+                    for (int x = 0; x < bibliEncontradas.size(); x++) {
+                        modelo.insertRow(
+                                x, new String[]{
+                                    bibliEncontradas.get(x).getDisciplina(),
+                                    bibliEncontradas.get(x).getLivro(),
+                                    String.valueOf(bibliEncontradas.get(x).getQtd()),   
+                                });
+                    }
+                   
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Selecione um curso para vê sua bibliografia!!");
+                }
             }
-        } catch (SQLException e) {
+            else{
+                JOptionPane.showMessageDialog(null, "Não há cursos cadastrados!!");
+            }
+        }
+        catch (HeadlessException e) {
             throw new RuntimeException(e);
         }
 
