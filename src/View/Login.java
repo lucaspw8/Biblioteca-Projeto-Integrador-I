@@ -15,13 +15,13 @@ import javax.swing.JOptionPane;
  * @author Lucas
  */
 public class Login extends javax.swing.JFrame {
-
+    
     private UsuarioControlador controlador;
-
+    
     public UsuarioControlador getControlador() {
         return controlador;
     }
-
+    
     public void setControlador(UsuarioControlador controlador) {
         this.controlador = controlador;
     }
@@ -179,16 +179,15 @@ public class Login extends javax.swing.JFrame {
     private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
         Usuario usuario;
         usuario = controlador.Login();
-
+        
         if (controlador.Login() != null) {
-
+            
             Home home = new Home(usuario);
             home.setVisible(true);
             dispose();
-
+            
         } else {
             JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos!");
-            txtlogin.setText("");
             passwdSenha.setText("");
         }
 
@@ -198,16 +197,15 @@ public class Login extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             Usuario usuario;
             usuario = controlador.Login();
-
+            
             if (controlador.Login() != null) {
-
+                
                 Home home = new Home(usuario);
                 home.setVisible(true);
                 dispose();
-
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos!");
-                txtlogin.setText("");
                 passwdSenha.setText("");
             }
         }

@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package View;
-
-import Controller.CursoControlador;
 import Controller.DisciplinaControlador;
 import Model.Usuario;
 import javax.swing.JOptionPane;
@@ -17,16 +15,7 @@ import javax.swing.JOptionPane;
 public class Disciplinas extends javax.swing.JFrame {
 
     private DisciplinaControlador controlador;
-    private CursoControlador controladorCurso;
     Usuario usuario;
-
-    public CursoControlador getControladorCurso() {
-        return controladorCurso;
-    }
-
-    public void setControladorCurso(CursoControlador controladorCurso) {
-        this.controladorCurso = controladorCurso;
-    }
 
     public DisciplinaControlador getControlador() {
         return controlador;
@@ -38,7 +27,6 @@ public class Disciplinas extends javax.swing.JFrame {
 
     public Disciplinas(Usuario usuario) {
         controlador = new DisciplinaControlador();
-        controladorCurso = new CursoControlador();
         initComponents();
         controlador.atualizarTabela(tbDisciplina);
         txtIdDisciplina.setVisible(false);

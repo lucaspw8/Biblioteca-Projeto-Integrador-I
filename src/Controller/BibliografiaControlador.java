@@ -1,9 +1,15 @@
 package Controller;
 
 import DAO.BibliografiaDAO;
+import DAO.DisciplinaDAO;
 import Model.Bibliografia;
+import Model.Curso;
+import Model.Disciplina;
+import java.awt.HeadlessException;
 import java.sql.SQLException;
 import java.util.List;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,6 +22,9 @@ public class BibliografiaControlador {
     private Bibliografia bibliografia = new Bibliografia();
     BibliografiaDAO bibliografiaDAO = new BibliografiaDAO();
     private List<Bibliografia> bibliografias;
+    DisciplinaDAO DisciplinaDao = new DisciplinaDAO();
+    Curso cursoObj = new Curso();
+    Disciplina discObj = new Disciplina();
 
     public Bibliografia getBibliografia() {
         return bibliografia;
@@ -33,43 +42,55 @@ public class BibliografiaControlador {
         this.bibliografias = bibliografias;
     }
 
-    public void cadastrar() {
-
-        bibliografiaDAO.cadastrar(bibliografia);
-
-    }
-
     /**
      * Chama a função de listar do DAO
+     * @param id_curso
      */
-    public void Listar() {
+    public void Listar(int id_curso) {
         try {
-            bibliografias = bibliografiaDAO.Listar();
+            setBibliografias(bibliografiaDAO.Listar(id_curso));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
     }
 
-    public void atualizarTabela(JTable tabela) {
-        Listar();
+    public void atualizarTabela(JTable tabela, JComboBox bibliografiaCurso) {
+        
+        try {
+            if (bibliografiaCurso.getItemCount() > 0) {
 
-        List<Bibliografia> bibliEncontradas = getBibliografias();
-        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+                if (bibliografiaCurso.getSelectedIndex() != -1) {
+                    this.cursoObj = (Curso) bibliografiaCurso.getSelectedItem();
+                     Listar(this.cursoObj.getIdCurso());
+                    
+                    List<Bibliografia> bibliEncontradas = getBibliografias();
+                    DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 
-        modelo.setNumRows(0);
+                    modelo.setNumRows(0);
 
-        for (int x = 0; x < bibliEncontradas.size(); x++) {
-            modelo.insertRow(
-                    x, new String[]{
-                        String.valueOf(bibliEncontradas.get(x).getIdCurso()),
-                        bibliEncontradas.get(x).getCurso(),
-                        String.valueOf(bibliEncontradas.get(x).getIdDisciplina()),
-                        bibliEncontradas.get(x).getDisciplina(),
-                        String.valueOf(bibliEncontradas.get(x).getIdLivro()),
-                        bibliEncontradas.get(x).getLivro()
-                    });
+                    for (int x = 0; x < bibliEncontradas.size(); x++) {
+                        modelo.insertRow(
+                                x, new String[]{
+                                    bibliEncontradas.get(x).getDisciplina(),
+                                    bibliEncontradas.get(x).getLivro(),
+                                    String.valueOf(bibliEncontradas.get(x).getQtd()),   
+                                });
+                    }
+                   
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Selecione um curso para vê sua bibliografia!!");
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Não há cursos cadastrados!!");
+            }
         }
+        catch (HeadlessException e) {
+            throw new RuntimeException(e);
+        }
+  
     }
 
     public void atualizarTabela(JTable tabela, String nome) {
@@ -84,12 +105,9 @@ public class BibliografiaControlador {
             for (int x = 0; x < bibliEncontradas.size(); x++) {
                 modelo.insertRow(
                         x, new String[]{
-                            String.valueOf(bibliEncontradas.get(x).getIdCurso()),
-                            bibliEncontradas.get(x).getCurso(),
-                            String.valueOf(bibliEncontradas.get(x).getIdDisciplina()),
                             bibliEncontradas.get(x).getDisciplina(),
-                            String.valueOf(bibliEncontradas.get(x).getIdLivro()),
-                            bibliEncontradas.get(x).getLivro()
+                            bibliEncontradas.get(x).getLivro(),
+                            String.valueOf(bibliEncontradas.get(x).getQtd()),    
                         });
             }
         } catch (SQLException e) {
@@ -98,9 +116,26 @@ public class BibliografiaControlador {
 
     }
 
-    public void Remover() {
+    public void Remover(JComboBox curso, JComboBox disciplina) {
         try {
-            bibliografiaDAO.Excluir(bibliografia);
+            
+            if (curso.getItemCount() > 0 && disciplina.getItemCount() > 0) {
+
+                if (curso.getSelectedIndex() != -1 && disciplina.getSelectedIndex() != -1 ) {
+                    this.cursoObj = (Curso) curso.getSelectedItem();
+                    this.discObj = (Disciplina) disciplina.getSelectedItem();
+                    
+                    bibliografiaDAO.Excluir(this.cursoObj.getIdCurso(), this.discObj.getIdDisciplina());
+                   
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Selecione um curso e uma disciplina para remover!!");
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Não há cursos ou disciplinas cadastradas!!");
+            }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

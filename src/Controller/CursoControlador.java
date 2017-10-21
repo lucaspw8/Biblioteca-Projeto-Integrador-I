@@ -8,6 +8,7 @@ package Controller;
 import DAO.CursoDAO;
 import Model.Curso;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -124,6 +125,26 @@ public class CursoControlador {
 
             tabela.setModel(modelo);
         
+    }
+  /**
+   * Responsavel por adicionar os Cursos ao Combobox
+   * @param curso 
+   */ 
+    public void CursosCombo(JComboBox curso){
+        try {
+             CursoDAO cursoDAO = new CursoDAO();
+             this.cursos = cursoDAO.ListarCurso(this.curso);
+             
+             curso.removeAllItems();
+             
+             this.cursos.forEach(b -> {
+                 curso.addItem(b);
+             });
+             
+             curso.setSelectedIndex(-1);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     
     public void limpar(JTextField[] campos){

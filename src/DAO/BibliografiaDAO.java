@@ -27,57 +27,20 @@ public class BibliografiaDAO {
     }
 
     /**
-     * Cadastra auma Bibliografia
-     *
-     * @param bibliografia
-     * @exception SQLException
-     */
-    public void cadastrar(Bibliografia bibliografia) {
-        try {
-            // 1º passo Criar a SQL
-            String comando = "insert into rel_curso_disci (idCurso,idDisciplina) values(?,?)";
-            //2º passo organizar o comando e executa-lo
-            PreparedStatement stmt = conecta.prepareStatement(comando);
-
-            stmt.setInt(1, bibliografia.getIdCurso());
-            stmt.setInt(2, bibliografia.getIdDisciplina());
-
-            //3º Executa comando 
-            stmt.execute();
-            //4º Fecha conexao
-            stmt.close();
-
-            String comando2 = "insert into rel_livro_disci (idLivro,idDisciplina) values(?,?)";
-            //2º passo organizar o comando e executa-lo
-            PreparedStatement stmt1 = conecta.prepareStatement(comando2);
-
-            stmt1.setInt(1, bibliografia.getIdLivro());
-            stmt1.setInt(2, bibliografia.getIdDisciplina());
-
-            //3º Executa comando 
-            stmt1.execute();
-            //4º Fecha conexao
-            stmt1.close();
-
-        } catch (SQLException erro) {
-            throw new RuntimeException(erro);
-        }
-    }
-
-    /**
      * Função que Exclui os dados do banco
      *
-     * @param bibliografia
+     * @param id_curso
+     * @param id_disc
      * @exception SQLException
      */
-    public void Excluir(Bibliografia bibliografia) throws SQLException{
+    public void Excluir(int id_curso, int id_disc) throws SQLException{
 
         // 1º passo Criar a SQL
         String comando = "delete from rel_curso_disci where idCurso = ? and idDisciplina = ?";
         try ( //2º passo organizar o comando e executa-lo
                 PreparedStatement stmt = conecta.prepareStatement(comando)) {
-            stmt.setInt(1, bibliografia.getIdCurso());
-            stmt.setInt(2, bibliografia.getIdDisciplina());
+            stmt.setInt(1, id_curso);
+            stmt.setInt(2, id_disc);
             //3º Executa comando
             stmt.execute();
             //4º Fecha conexao
@@ -88,8 +51,7 @@ public class BibliografiaDAO {
         String comando2 = "delete from rel_livro_disci where idLivro = ? and idDisciplina = ?";
         try ( //2º passo organizar o comando e executa-lo
                 PreparedStatement stmt1 = conecta.prepareStatement(comando2)) {
-            stmt1.setInt(1, bibliografia.getIdLivro());
-            stmt1.setInt(2, bibliografia.getIdDisciplina());
+
             //3º Executa comando
             stmt1.execute();
             //4º Fecha conexao
@@ -101,29 +63,25 @@ public class BibliografiaDAO {
     
     /**
      * 
+     * @param id_curso
      * @return List
      * @throws SQLException 
      */
-    public List<Bibliografia> Listar() throws SQLException{
+    public List<Bibliografia> Listar(int id_curso) throws SQLException{
 
         try {
             List<Bibliografia> bibliografia = new ArrayList<>();
-            String sql = "SELECT c.idCurso AS curso_id, c.nome AS Curso,d.idDisciplina As disc_id,d.nome AS Disciplina,l.id AS livro_id,l.titulo AS Livro \n"
-                    + "from curso c, disciplina d, livro l, rel_curso_disci rcd, rel_livro_disci rld\n"
-                    + "where c.idCurso = rcd.idCurso and d.idDisciplina = rcd.idDisciplina and d.idDisciplina = rld.idDisciplina and l.id = rld.idLivro";
+            String sql = "SELECT * FROM bibliografia WHERE idCurso = ? ";
             PreparedStatement stmt = conecta.prepareStatement(sql);
+            stmt.setInt(1, id_curso);
             //3º Passo guardar o resultado dentro de um obj ResultSet
             ResultSet rs = stmt.executeQuery();
             //4º Enqualto tiver resultado guardar no registro da lista
             while (rs.next()) {
                 Bibliografia b = new Bibliografia();
-                b.setIdCurso(rs.getInt("curso_id"));
-                b.setCurso(rs.getString("Curso"));
-                b.setIdDisciplina(rs.getInt("disc_id"));
-                b.setDisciplina(rs.getString("Disciplina"));
-                b.setIdLivro(rs.getInt("livro_id"));
-                b.setLivro(rs.getString("Livro"));
-
+                b.setDisciplina(rs.getString(1));
+                b.setLivro(rs.getString(2));
+                b.setQtd(rs.getInt(3));
                 bibliografia.add(b);
             }
             return bibliografia;
@@ -137,10 +95,7 @@ public class BibliografiaDAO {
         try {
             List<Bibliografia> bibliografia;
             bibliografia = new ArrayList<>();
-            String sql = "SELECT c.idCurso AS curso_id, c.nome AS Curso,d.idDisciplina As disc_id,d.nome AS Disciplina,l.id AS livro_id,l.titulo AS Livro \n"
-                    + "from curso c, disciplina d, livro l, rel_curso_disci rcd, rel_livro_disci rld\n"
-                    + "where c.idCurso = rcd.idCurso and d.idDisciplina = rcd.idDisciplina and d.idDisciplina = rld.idDisciplina and l.id = rld.idLivro"
-                    + "and c.nome like %?%";
+            String sql = "SELECT * FROM bibliografia WHERE like %?%";
             PreparedStatement stmt = conecta.prepareStatement(sql);
             //3º Passo guardar o resultado dentro de um obj ResultSet
             stmt.setString(1,nome);
@@ -148,13 +103,9 @@ public class BibliografiaDAO {
             //4º Enqualto tiver resultado guardar no registro da lista
             while (rs.next()) {
                 Bibliografia b = new Bibliografia();
-                b.setIdCurso(rs.getInt("curso_id"));
-                b.setCurso(rs.getString("Curso"));
-                b.setIdDisciplina(rs.getInt("disc_id"));
-                b.setDisciplina(rs.getString("Disciplina"));
-                b.setIdLivro(rs.getInt("livro_id"));
-                b.setLivro(rs.getString("Livro"));
-
+                b.setDisciplina(rs.getString(0));
+                b.setLivro(rs.getString(1));
+                b.setQtd(rs.getInt(2));
                 bibliografia.add(b);
             }
            return bibliografia;

@@ -6,6 +6,8 @@
 package DAO;
 
 import Model.Livro;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -14,6 +16,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import util.HibernateUtil;
+import Conexao.Conectar;
 
 
 /**
@@ -22,9 +25,16 @@ import util.HibernateUtil;
  */
 public class LivroDao {
      
-    private Session sessao;
+     private Session sessao;
+     private final Connection conecta;
+
+    public LivroDao() {
+        this.conecta = new Conectar().conecta();
+    }
+     
     
     private Transaction transacao;
+
     /**
      * Abre a coneção e inicia a transação
      */
@@ -126,6 +136,31 @@ public class LivroDao {
             
         } catch (HibernateException e){
             
+            throw new RuntimeException(e);
+        }
+    }
+    
+    /**
+     * Função que associa Livros com Disciplinas
+     * @param idLivro
+     * @param idDisciplina 
+     */
+    public void AssociarLivro(int idLivro,int idDisciplina){
+        try {
+             // 1º passo Criar a SQL
+            String comando = "insert into rel_livro_disci(idLivro,idDisciplina)values(?,?)";
+            //2º passo organizar o comando e executa-lo
+            PreparedStatement stmt = conecta.prepareStatement(comando);
+            
+            stmt.setInt(1, idLivro);
+            stmt.setInt(2, idDisciplina);
+            JOptionPane.showMessageDialog(null,comando);
+            //3º Executa comando 
+            stmt.execute();
+            //4º Fecha conexao
+            stmt.close();
+            
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
